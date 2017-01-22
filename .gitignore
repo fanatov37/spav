@@ -1,0 +1,6 @@
+# Local configs
+/tests/config/*.local.php
+
+
+# todo list
+doc/todo.php

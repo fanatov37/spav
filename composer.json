@@ -1,0 +1,31 @@
+{
+    "name": "spav",
+    "description": "Stored Programs and Views in MySql5.7 for ZF2",
+    "keywords": [
+        "spav",
+        "procedure mysql",
+        "function mysql",
+        "view mysql",
+        "stored programs and views"
+    ],
+    "license": "GNU",
+    "authors": [
+        {
+            "name": "Vlad Fanatov",
+            "email": "fan.oldschool@gmail.com",
+            "homepage": "https://www.facebook.com/fanatov37"
+        }
+    ],
+    "config": {
+        "bin-dir": "bin"
+    },
+    "require": {
+        "php": "~7"
+    },
+    "autoload": {
+        "psr-4": { "Spav\\": "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "SpavTest\\": "tests/" }
+    }
+}
