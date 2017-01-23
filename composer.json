@@ -1,6 +1,6 @@
 {
     "name": "spav",
-    "description": "Stored Programs and Views in MySql5.7 for ZF2",
+    "description": "Stored Programs and Views in MySql for ZF2 or ZF3",
     "keywords": [
         "spav",
         "procedure mysql",
