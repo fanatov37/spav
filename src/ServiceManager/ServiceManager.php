@@ -10,6 +10,7 @@
  */
 namespace Spav\ServiceManager;
 
+use Zend\Authentication\AuthenticationService;
 use Zend\Log\Logger;
 use Zend\Mvc\I18n\Translator;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -47,7 +48,7 @@ abstract class ServiceManager
      *
      * @return array|object
      */
-    public function get($name)
+    public function getService($name)
     {
        return $this->sm->get($name);
     }
@@ -57,7 +58,7 @@ abstract class ServiceManager
      */
     public function getTranslator()
     {
-        return $this->get('translator');
+        return $this->getService('translator');
     }
 
     /**
@@ -65,7 +66,7 @@ abstract class ServiceManager
      */
     public function getConfig()
     {
-        return $this->get('config');
+        return $this->getService('config');
     }
 
     /**
@@ -76,7 +77,7 @@ abstract class ServiceManager
      */
     public function getFirePHP()
     {
-        return $this->get('firePHP');
+        return $this->getService('firePHP');
     }
 
     /**
@@ -84,6 +85,19 @@ abstract class ServiceManager
      */
     public function getLog()
     {
-        return $this->get('log');
+        return $this->getService('log');
+    }
+
+    /**
+     * @return array
+     */
+    public function getIdentity() : array
+    {
+        /** @var AuthenticationService $authService */
+        $authService = $this->getService(AuthenticationService::class);
+
+        $identity = $authService->getIdentity();
+
+        return $identity;
     }
 }

@@ -11,6 +11,7 @@
 namespace Spav\Entity\MySql\View;
 
 use Spav\Entity\MySql\View;
+use Zend\Db\Sql\Predicate\Predicate;
 
 abstract class EntityView extends View
 {
@@ -40,6 +41,18 @@ abstract class EntityView extends View
         $getView = $this->getView();
         $this->viewName = strval($getView[0]);
         $this->rows = $getView[1];
+    }
+
+    /**
+     * <code>
+     * $this->_getPrimaryKey(); // 'USER_ID'
+     * </code>
+     *
+     * @return string
+     */
+    protected function getPrimaryKey()
+    {
+        return NULL;
     }
 
     /**
@@ -93,60 +106,37 @@ abstract class EntityView extends View
     /**
      * (non-PHPDoc)
      *
-     * @param string $cond
-     * @param $value
-     * @param integer $type
+     * @param Predicate $predicate
      *
-     * @return EntityView
+     * @return $this
      */
-    public function where($cond, $value = NULL, $type = \PDO::PARAM_STR)
+    public function where(Predicate $predicate)
     {
-        if (!empty($cond)) {
-            // todo need refactoring type
-            $this->select->where($cond, $value, $this->getParamType($type));
-        }
+        $this->select->where($predicate);
 
         return $this;
     }
 
     /**
-     * (non-PHPDoc)
-     *
-     * @return array()
-     */
-    public function fetchAll()
-    {
-        return $this->_fetchAll();
-    }
-
-    /**
-     * @param mixed $id
+     * @param int $id
      *
      * @return EntityView
      */
-    public function whereId($id)
+    public function whereId(int $id)
     {
+        $predicate = new Predicate();
+
         $primaryKey = $this->getPrimaryKey();
 
         if (empty($id) || empty($primaryKey)) {
-            $this->where('-1 = 1');
+            $predicate->equalTo(-1,1);
         } else {
-            $this->where($this->getPrimaryKey() . ' = ?', $id, \PDO::PARAM_INT);
+            $predicate->equalTo($primaryKey, $id);
         }
 
-        return $this;
-    }
+        $this->where($predicate);
 
-    /**
-     * <code>
-     * $this->_getPrimaryKey(); // 'USER_ID'
-     * </code>
-     *
-     * @return string
-     */
-    protected function getPrimaryKey()
-    {
-        return NULL;
+        return $this;
     }
 
     /**
@@ -175,5 +165,15 @@ abstract class EntityView extends View
     public function cacheClean()
     {
         //todo need realization cache
+    }
+
+    /**
+     * (non-PHPDoc)
+     *
+     * @return array()
+     */
+    public function fetchAll()
+    {
+        return $this->_fetchAll();
     }
 }

@@ -4,14 +4,13 @@
  *
  * @link https://github.com/fanatov37/spav.git for the canonical source repository
  * @copyright Copyright (c) 2015
- * @license YouFold (c)
+ * @license SPAV (c)
  * @author VladFanatov
  * @package Library PHPUnit
  */
 namespace SpavTest\Entity\MySql\StoredFunction;
 
 use PHPUnit\Framework\TestCase;
-use User\Entity\EntityFunction\GetUserData;
 use SpavTest\Bootstrap;
 use Spav\Entity\MySql\StoredFunction\BindExecute;
 use SpavTest\EntityExample\StoredFunction\BindExecuteEntity;

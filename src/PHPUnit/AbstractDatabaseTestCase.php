@@ -11,10 +11,12 @@
 
 namespace Spav\PHPUnit;
 
+use PDO;
+
 use PHPUnit_Extensions_Database_TestCase;
 use PHPUnit_Extensions_Database_DB_DefaultDatabaseConnection as
     PHPUnitDefaultDatabaseConnection;
-use PDO;
+
 use SpavTest\Bootstrap;
 
 abstract class AbstractDatabaseTestCase extends PHPUnit_Extensions_Database_TestCase
