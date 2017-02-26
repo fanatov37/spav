@@ -13,6 +13,7 @@ namespace Spav\Entity\MySql\StoredFunction;
 use Spav\Entity\MySql\LanguageInterface;
 use Spav\Entity\MySql\ParamInterface;
 use Spav\Entity\MySql\AbstractStoredFunction;
+use Spav\Entity\MySql\UserInterface;
 use Zend\Db\Adapter\Driver\ResultInterface;
 use Zend\Db\Adapter\ParameterContainer;
 use Zend\Json\Json;
@@ -34,6 +35,13 @@ abstract class BindExecute extends AbstractStoredFunction
 
         if ($this instanceof ParamInterface) {
             $bindParamsArray = $this->initParams($this->getParams());
+        }
+
+        if ($this instanceof UserInterface) {
+            $lenguageKey = self::STR_PARAM . count($bindParamsArray);
+
+            $bindParamsArray[$lenguageKey] =
+                [ParameterContainer::TYPE_STRING=>$this->getUserId()];
         }
 
         if ($this instanceof LanguageInterface) {

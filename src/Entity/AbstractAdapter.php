@@ -11,6 +11,7 @@
 namespace Spav\Entity;
 
 use Core\Service\LocaleService;
+use Zend\Authentication\AuthenticationService;
 use Zend\Db\Adapter\Adapter as ZendAdapter;
 use Zend\Db\Adapter\ParameterContainer;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -127,5 +128,24 @@ abstract class AbstractAdapter
         $localeService = $this->_sm->get(LocaleService::class);
 
         return $localeService->getCurrentLocale();
+    }
+
+    /**
+     * @return null|int
+     */
+    public function getUserId()
+    {
+        $userId = null;
+
+        /** @var AuthenticationService $authService */
+        $authService = $this->_sm->get(AuthenticationService::class);
+
+        $identity = $authService->getIdentity();
+
+        if (is_array($identity) && isset($identity['userId'])) {
+            $userId =$identity['userId'];
+        }
+
+        return $userId;
     }
 }

@@ -13,6 +13,7 @@ namespace Spav\Entity\MySql\StoredFunction;
 use Spav\Entity\MySql\LanguageInterface;
 use Spav\Entity\MySql\ParamInterface;
 use Spav\Entity\MySql\AbstractStoredFunction;
+use Spav\Entity\MySql\UserInterface;
 use Zend\Db\Adapter\Adapter as ZendAdapter;
 use Zend\Db\Adapter\ParameterContainer;
 use Zend\Db\ResultSet\ResultSet;
@@ -34,6 +35,13 @@ abstract class Execute extends AbstractStoredFunction
 
         if ($this instanceof ParamInterface) {
             $bindParams = $this->initParams($this->getParams());
+        }
+
+        if ($this instanceof UserInterface) {
+            $lenguageKey = self::STR_PARAM . count($bindParams);
+
+            $bindParamsArray[$lenguageKey] =
+                [ParameterContainer::TYPE_STRING=>$this->getUserId()];
         }
 
         if ($this instanceof LanguageInterface) {
