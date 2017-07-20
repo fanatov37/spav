@@ -221,13 +221,11 @@ abstract class AbstractBootstrap
 
         $config = $instance->getConfig();
 
-        $serviceManager = new ServiceManager(new ServiceManagerConfig());
+        $serviceManagerConfig = new ServiceManagerConfig($config);
+
+        $serviceManager = new ServiceManager($serviceManagerConfig->toArray());
         $serviceManager->setService('ApplicationConfig', $config);
-
         $serviceManager->get('ModuleManager')->loadModules();
-
-        $application = new Application($config, $serviceManager);
-        $application->bootstrap();
 
         self::$serviceManager = $serviceManager;
     }
