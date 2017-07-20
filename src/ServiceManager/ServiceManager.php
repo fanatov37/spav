@@ -10,10 +10,12 @@
  */
 namespace Spav\ServiceManager;
 
+use Interop\Container\ContainerInterface;
 use Zend\Authentication\AuthenticationService;
 use Zend\Log\Logger;
 use Zend\Mvc\I18n\Translator;
 use Zend\ServiceManager\ServiceLocatorInterface;
+
 
 abstract class ServiceManager
 {
@@ -25,7 +27,7 @@ abstract class ServiceManager
     /**
      * ServiceManager constructor.
      *
-     * @param ServiceLocatorInterface $serviceManager
+     * @param ServiceLocatorInterface|ContainerInterface $serviceManager
      */
     public function __construct(ServiceLocatorInterface $serviceManager)
     {
@@ -44,13 +46,17 @@ abstract class ServiceManager
 
     /**
      * @param $name
-     * @see ServiceLocatorInterface::get
      *
      * @return array|object
+     * @throws \Exception
      */
     public function getService($name)
     {
-       return $this->sm->get($name);
+        if (!$this->sm->has($name)) {
+            throw new \Exception('Error. Service not found');
+        }
+
+        return $this->sm->get($name);
     }
 
     /**
