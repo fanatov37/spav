@@ -16,11 +16,11 @@ use Zend\Stdlib\ArrayObject;
 Interface ParamInterface
 {
     /**
-     * @param ArrayObject $paramObject
+     * @param ArrayObject|\stdClass $paramObject
      *
      * @return self
      */
-    public function setParams(ArrayObject $paramObject);
+    public function setParams($paramObject);
 
     /**
      * @return array
