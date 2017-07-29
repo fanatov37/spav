@@ -48,7 +48,7 @@ abstract class Execute extends AbstractStoredFunction
             $lenguageKey = self::STR_PARAM . count($bindParams);
 
             $bindParams[$lenguageKey] =
-                [ParameterContainer::TYPE_STRING=>$this->getCurrentLocale()];
+                [ParameterContainer::TYPE_INTEGER=>$this->getCurrentLocaleId()];
         }
 
         $paramArray = [];

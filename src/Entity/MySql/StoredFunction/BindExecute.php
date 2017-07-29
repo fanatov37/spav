@@ -48,7 +48,7 @@ abstract class BindExecute extends AbstractStoredFunction
             $lenguageKey = self::STR_PARAM . count($bindParamsArray);
 
             $bindParamsArray[$lenguageKey] =
-                [ParameterContainer::TYPE_STRING=>$this->getCurrentLocale()];
+                [ParameterContainer::TYPE_INTEGER=>$this->getCurrentLocaleId()];
         }
 
         foreach ($bindParamsArray as $key => $bindParams) {

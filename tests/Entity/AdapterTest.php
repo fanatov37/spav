@@ -62,11 +62,11 @@ class AdapterTest extends TestCase
     }
 
     /**
-     * @see AbstractAdapter::getCurrentLocale()
+     * @see AbstractAdapter::getCurrentLocaleId()
      */
     public function testGetCurrentLocale()
     {
-        $getCurrentLocale = Bootstrap::getMethod($this->yfEntityAdapter, 'getCurrentLocale');
+        $getCurrentLocale = Bootstrap::getMethod($this->yfEntityAdapter, 'getCurrentLocaleId');
 
         $this->assertTrue(is_string($getCurrentLocale->invokeArgs($this->yfEntityAdapter, [])));
     }

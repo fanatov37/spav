@@ -53,7 +53,7 @@ class TransactionExecuteEntity extends TransactionExecute implements ParamInterf
      *
      * @return self
      */
-    public function setParams(ArrayObject $paramObject) : self
+    public function setParams($paramObject) : self
     {
         $this->key = $paramObject->key;
         $this->name = $paramObject->name;

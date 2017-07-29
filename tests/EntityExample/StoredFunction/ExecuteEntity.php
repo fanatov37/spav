@@ -48,7 +48,7 @@ class ExecuteEntity extends Execute implements ParamInterface, LanguageInterface
      *
      * @return self
      */
-    public function setParams(ArrayObject $paramObject) : self
+    public function setParams($paramObject) : self
     {
         $this->string = $paramObject->string;
         $this->integer = $paramObject->integer;

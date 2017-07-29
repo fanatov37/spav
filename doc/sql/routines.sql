@@ -1,23 +1,17 @@
---
--- Dumping routines for database 'spav'
---
-
-use spav;
-
 /* Functions */
 
 drop function if exists `error_handler`;
 delimiter ;;
 create function `error_handler`(
-  p_sql_state     int,
-  p_language_name varchar(45)
+  p_sql_state int,
+  p_language_id int
 )
   returns json
   begin
 
     declare v_error_text text;
 
-    set v_error_text = (select get_message(p_sql_state, p_language_name));
+    set v_error_text = (select get_application_message(p_sql_state, p_language_id));
 
 
     insert into error_log (
@@ -26,81 +20,56 @@ create function `error_handler`(
       v_error_text
     );
 
-
     return json_object('success', 0, 'message', v_error_text);
 
   end ;;
 delimiter ;
 
 
-drop function if exists `get_language_id_by_name`;
+drop function if exists `get_application_message`;
 delimiter ;;
-create function `get_language_id_by_name`(
-  p_language_name varchar(45)
+create function `get_application_message`(
+  p_sql_state int,
+  p_language_id int
 )
-  returns int(11)
-  begin
-    declare const_default_language_id int default 2;
-    declare v_language_id int;
+  returns text charset utf8 collate utf8_unicode_ci
+begin
 
+  declare CONST_DEFAULT_LANGUAGE_ID int default 1;
+
+  declare v_language_id int;
+  declare v_sql_state int;
+  declare v_text text;
+
+  set v_language_id = (
     select id
-    into v_language_id
     from language
-    where name collate utf8_unicode_ci = p_language_name collate utf8_unicode_ci;
+    where language.id = p_language_id
+  );
 
-    if v_language_id
-    then
-      return v_language_id;
-    else
-      return const_default_language_id;
-    end if;
+  select
+    application_message.sql_state,
+    application_message.text
 
-  end ;;
-delimiter ;
+  into v_sql_state, v_text
 
+  from application_message
 
-drop function if exists `get_message`;
-delimiter ;;
-create function `get_message`(
-  p_sql_state     int,
-  p_language_name varchar(45)
-)
-  returns text charset utf8
-  collate utf8_unicode_ci
-  begin
+  where
+    application_message.active = 1
+    and application_message.language_id = if(v_language_id, v_language_id, CONST_DEFAULT_LANGUAGE_ID)
+    and application_message.sql_state = p_sql_state
 
-    declare v_language_id int;
-    declare v_sql_state int;
-    declare v_text text;
-
-    set v_language_id = (select get_language_id_by_name(p_language_name)
-                         from dual);
+  order by application_message.sql_state;
 
 
-    select
-      application_message.sql_state,
-      application_message.text
+  if (length(v_text) > 0) then
+    return v_text;
+  else
+    return 'Text has not found';
+  end if;
 
-    into v_sql_state, v_text
-
-    from application_message
-
-    where
-      application_message.active = 1
-      and application_message.language_id = v_language_id
-      and application_message.sql_state = p_sql_state
-
-    order by application_message.sql_state;
-
-
-    if (length(v_text) > 0)
-    then
-      return v_text;
-    else
-      return 'Text has not found';
-    end if;
-
-  end ;;
+end ;;
 delimiter ;
 
 drop function if exists `test_function`;
@@ -138,7 +107,6 @@ create procedure `test_procedure`(
 
     declare const_type_json int default 1;
     declare const_type_recordset int default 2;
-    declare const_type_transaction int default 3;
 
     declare v_test_table_id int;
 

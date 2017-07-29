@@ -12,8 +12,8 @@ namespace Spav\ServiceManager;
 
 use Interop\Container\ContainerInterface;
 use Zend\Authentication\AuthenticationService;
+use Zend\I18n\Translator\Translator;
 use Zend\Log\Logger;
-use Zend\Mvc\I18n\Translator;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 

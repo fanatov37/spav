@@ -47,7 +47,7 @@ class BindExecuteEntity extends BindExecute implements ParamInterface, LanguageI
      *
      * @return self
      */
-    public function setParams(ArrayObject $paramObject) : self
+    public function setParams($paramObject) : self
     {
         $this->string = $paramObject->string;
         $this->integer = $paramObject->integer;
