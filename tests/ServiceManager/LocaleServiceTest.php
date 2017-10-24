@@ -92,4 +92,22 @@ class LocaleServiceTest extends TestCase
         $this->assertTrue($this->localService->isCurrentLocale(self::ENG_LOCALE));
         $this->assertTrue(!$this->localService->isCurrentLocale(self::RUS_LOCALE));
     }
+
+    /**
+     * @see LocaleService::getAllTranslatedMessage()
+     */
+    public function testGetAllTranslatedMessage ()
+    {
+        $allTranslatedMessage = $this->localService->getAllTranslatedMessage();
+
+        $this->assertTrue(is_string($allTranslatedMessage));
+    }
+
+    /**
+     * @see LocaleService::setLocale()
+     */
+    public function testSetUndefinedLocale()
+    {
+        $this->localService->setLocale('UNDEFINED_LOCALE');
+    }
 }

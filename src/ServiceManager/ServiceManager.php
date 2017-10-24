@@ -39,7 +39,7 @@ abstract class ServiceManager
      *
      * @deprecated
      */
-    protected function getServiceManager()
+    protected function getServiceManager() : ServiceLocatorInterface
     {
         return $this->sm;
     }
@@ -62,7 +62,7 @@ abstract class ServiceManager
     /**
      * @return Translator
      */
-    public function getTranslator()
+    public function getTranslator() : Translator
     {
         return $this->getService('translator');
     }
@@ -70,26 +70,15 @@ abstract class ServiceManager
     /**
      * @return array
      */
-    public function getConfig()
+    public function getConfig() : array
     {
         return $this->getService('config');
     }
 
     /**
-     *
-     * This is FirePHP for return to console your custom data
-     *
-     * @return object
-     */
-    public function getFirePHP()
-    {
-        return $this->getService('firePHP');
-    }
-
-    /**
      * @return Logger
      */
-    public function getLog()
+    public function getLog() : Logger
     {
         return $this->getService('log');
     }
@@ -97,13 +86,11 @@ abstract class ServiceManager
     /**
      * @return array
      */
-    public function getIdentity() : array
+    public function getIdentity() : ?array
     {
         /** @var AuthenticationService $authService */
         $authService = $this->getService(AuthenticationService::class);
 
-        $identity = $authService->getIdentity();
-
-        return $identity;
+        return $authService->getIdentity();
     }
 }

@@ -39,7 +39,7 @@ abstract class EntityView extends View
     protected function setData()
     {
         $getView = $this->getView();
-        $this->viewName = strval($getView[0]);
+        $this->viewName = (string)$getView[0];
         $this->rows = $getView[1];
     }
 
@@ -89,7 +89,7 @@ abstract class EntityView extends View
      */
     public function getCount()
     {
-        return intval($this->rowCount);
+        return (int)$this->rowCount;
     }
 
     /**
@@ -108,9 +108,9 @@ abstract class EntityView extends View
      *
      * @param Predicate $predicate
      *
-     * @return $this
+     * @return $this|self
      */
-    public function where(Predicate $predicate)
+    public function where(Predicate $predicate) : self
     {
         $this->select->where($predicate);
 
@@ -120,9 +120,9 @@ abstract class EntityView extends View
     /**
      * @param int $id
      *
-     * @return EntityView
+     * @return $this|self
      */
-    public function whereId(int $id)
+    public function whereId(int $id) : self
     {
         $predicate = new Predicate();
 
@@ -132,6 +132,29 @@ abstract class EntityView extends View
             $predicate->equalTo(-1,1);
         } else {
             $predicate->equalTo($primaryKey, $id);
+        }
+
+        $this->where($predicate);
+
+        return $this;
+    }
+
+    /**
+     *
+     * Rememder that your query must have user_id field
+     *
+     * @param int $userId
+     *
+     * @return $this|self
+     */
+    public function whereByUserId(int $userId) : self
+    {
+        $predicate = new Predicate();
+
+        if (empty($userId)) {
+            $predicate->equalTo(-1, 1);
+        } else {
+            $predicate->equalTo('user_id', $userId);
         }
 
         $this->where($predicate);

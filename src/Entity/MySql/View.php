@@ -92,8 +92,7 @@ abstract class View extends AbstractAdapter
 
         $resultSet = new ResultSet();
         $resultSet->initialize($result);
-        $data = $resultSet->toArray();
 
-        return $data;
+        return $resultSet->toArray();
     }
 }
