@@ -10,14 +10,13 @@
  */
 namespace SpavTest\Entity\MySql\StoredProcedure;
 
+use PHPUnit\DbUnit\DataSet\ArrayDataSet;
 use Spav\PHPUnit\AbstractDatabaseTestCase;
 use Zend\Stdlib\ArrayObject;
-use PHPUnit_Extensions_Database_DataSet_ArrayDataSet;
-use PHPUnit_Extensions_Database_DataSet_QueryDataSet;
-
 use SpavTest\Bootstrap;
 use Spav\Entity\MySql\AbstractStoredProcedure;
 use SpavTest\EntityExample\StoredProcedure\TransactionExecuteEntity;
+
 
 class TransactionExecuteTest extends AbstractDatabaseTestCase
 {
@@ -31,14 +30,14 @@ class TransactionExecuteTest extends AbstractDatabaseTestCase
     protected $transactionExecuteEntity;
 
     /**
-     * @return PHPUnit_Extensions_Database_DataSet_ArrayDataSet
+     * @return ArrayDataSet
      */
     public function getDataSet()
     {
-        return new PHPUnit_Extensions_Database_DataSet_ArrayDataSet( [
+        return new ArrayDataSet( [
             'test_table' => [
-                ['id' => 100, 'key'  => uniqid('key-'), 'name' => 'Mordecai Richler'],
-                ['id' => 101, 'key'  => uniqid('key-'), 'name' => 'Farley Mowat']
+                ['id' => 100, 'key'  => uniqid('key-', true), 'name' => 'Mordecai Richler'],
+                ['id' => 101, 'key'  => uniqid('key-', true), 'name' => 'Farley Mowat']
             ]
         ]);
     }
@@ -71,8 +70,8 @@ class TransactionExecuteTest extends AbstractDatabaseTestCase
         $arrayObject = new ArrayObject();
         $arrayObject->setFlags(ArrayObject::ARRAY_AS_PROPS);
 
-        $uniqKey = uniqid('key-');
-        $name = uniqid('name-');
+        $uniqKey = uniqid('key-', true);
+        $name = uniqid('name-', true);
 
         $arrayObject->offsetSet('key', $uniqKey);
         $arrayObject->offsetSet('name', $name);

@@ -12,14 +12,12 @@
 namespace Spav\PHPUnit;
 
 use PDO;
-
-use PHPUnit_Extensions_Database_TestCase;
-use PHPUnit_Extensions_Database_DB_DefaultDatabaseConnection as
-    PHPUnitDefaultDatabaseConnection;
-
+use PHPUnit\DbUnit\Database\DefaultConnection;
+use PHPUnit\DbUnit\TestCase;
 use SpavTest\Bootstrap;
 
-abstract class AbstractDatabaseTestCase extends PHPUnit_Extensions_Database_TestCase
+
+abstract class AbstractDatabaseTestCase extends TestCase
 {
 
     /**
@@ -28,7 +26,7 @@ abstract class AbstractDatabaseTestCase extends PHPUnit_Extensions_Database_Test
     static private $pdo = null;
 
     /**
-     * @var PHPUnitDefaultDatabaseConnection
+     * @var DefaultConnection
      */
     private $conn = null;
 
@@ -61,9 +59,9 @@ abstract class AbstractDatabaseTestCase extends PHPUnit_Extensions_Database_Test
     }
 
     /**
-     * @return null|PHPUnitDefaultDatabaseConnection
+     * @return null|DefaultConnection
      */
-    final public function getConnection() : PHPUnitDefaultDatabaseConnection
+    final public function getConnection() : DefaultConnection
     {
         if ($this->conn === null) {
             $this->conn = $this->createDefaultDBConnection($this->getAdapter());

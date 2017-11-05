@@ -108,6 +108,8 @@ class LocaleServiceTest extends TestCase
      */
     public function testSetUndefinedLocale()
     {
-        $this->localService->setLocale('UNDEFINED_LOCALE');
+        $undefinedLocale = 'UNDEFINED_LOCALE';
+        $this->localService->setLocale($undefinedLocale);
+        $this->assertFalse($this->localService->isCurrentLocale($undefinedLocale));
     }
 }
