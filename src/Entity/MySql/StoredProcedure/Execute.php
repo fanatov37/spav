@@ -65,13 +65,11 @@ abstract class Execute extends AbstractStoredProcedure
 
         $sql = sprintf($this->templateProcedureSql,
             $this->getScheme(),
-            strval($this->getProcedure()),
+            $this->getProcedure(),
             implode(', ', array_filter($paramArray))
         );
 
-        $statement = $this->getAdapter()->query($sql, ZendAdapter::QUERY_MODE_EXECUTE);
-
-        return $statement;
+        return $this->getAdapter()->query($sql, ZendAdapter::QUERY_MODE_EXECUTE);
     }
 
     /**
@@ -83,12 +81,10 @@ abstract class Execute extends AbstractStoredProcedure
     {
         $result = $this->statementExecute();
 
-        if ($result instanceof ResultSet) {
-
-            return $result->toArray();
-
-        } else {
+        if ( !($result instanceof ResultSet)) {
             throw new \Exception('Execute function must return ResultInterface');
         }
+
+        return $result->toArray();
     }
 }

@@ -38,10 +38,10 @@ abstract class BindExecute extends AbstractStoredFunction
         }
 
         if ($this instanceof UserInterface) {
-            $lenguageKey = self::STR_PARAM . count($bindParamsArray);
+            $usereKey = self::STR_PARAM . count($bindParamsArray);
 
-            $bindParamsArray[$lenguageKey] =
-                [ParameterContainer::TYPE_STRING=>$this->getUserId()];
+            $bindParamsArray[$usereKey] =
+                [ParameterContainer::TYPE_INTEGER=>$this->getUserId()];
         }
 
         if ($this instanceof LanguageInterface) {
@@ -59,7 +59,7 @@ abstract class BindExecute extends AbstractStoredFunction
 
         $sql = sprintf($this->templateFunctionSql,
             $this->getScheme(),
-            strval($this->getFunction()),
+            $this->getFunction(),
             implode(', ', array_keys($bindParamsArray))
         );
 

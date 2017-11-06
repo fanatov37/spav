@@ -59,7 +59,7 @@ abstract class BindExecute extends AbstractStoredProcedure
 
         $sql = sprintf($this->templateProcedureSql,
             $this->getScheme(),
-            strval($this->getProcedure()),
+            $this->getProcedure(),
             implode(', ', array_keys($bindParamsArray))
         );
 
@@ -82,14 +82,13 @@ abstract class BindExecute extends AbstractStoredProcedure
     {
         $result = $this->statementExecute();
 
-        if ($result instanceof ResultInterface && $result->isQueryResult()) {
-            $resultSet = new ResultSet();
-            $resultSet->initialize($result);
-
-            return $resultSet->toArray();
-
-        } else {
+        if ( !($result instanceof ResultInterface && $result->isQueryResult())) {
             throw new \Exception('Execute function must return ResultInterface');
         }
+
+        $resultSet = new ResultSet();
+        $resultSet->initialize($result);
+
+        return $resultSet->toArray();
     }
 }

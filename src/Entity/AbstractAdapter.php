@@ -61,13 +61,13 @@ abstract class AbstractAdapter
      *
      * check param type
      *
-     * @param string $type
+     * @param $type
      *
      * @return string
      */
     protected function getParamType($type) : string
     {
-        switch (strval($type)) {
+        switch ((string)$type) {
             case ParameterContainer::TYPE_STRING:
                 return $type;
                 break;
@@ -120,9 +120,9 @@ abstract class AbstractAdapter
     /**
      * @see LocaleService::getCurrentLocaleId()
      *
-     * @return string
+     * @return int
      */
-    protected function getCurrentLocaleId() : string
+    protected function getCurrentLocaleId() : int
     {
         /** @var LocaleService $localeService */
         $localeService = $this->_sm->get(LocaleService::class);
@@ -133,7 +133,7 @@ abstract class AbstractAdapter
     /**
      * @return null|int
      */
-    public function getUserId()
+    public function getUserId() : ?int
     {
         $userId = null;
 

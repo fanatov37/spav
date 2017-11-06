@@ -23,10 +23,7 @@ class LocaleService extends ServiceManager
     {
         $config  = $this->getConfig();
 
-        /** @var array $localeList */
-        $localeList = $config['translator']['list'];
-
-        return $localeList;
+        return $config['translator']['list'];
     }
 
     /**
@@ -39,9 +36,9 @@ class LocaleService extends ServiceManager
         /** @var array $localeList */
         $localeList = $this->getLocaleList();
 
-        $translator = $this->getTranslator();
-
         if (in_array($locale, $localeList)) {
+            $translator = $this->getTranslator();
+
             $cookie = new SetCookie();
             $cookie->setName('locale')
                 ->setValue($locale)
@@ -64,7 +61,7 @@ class LocaleService extends ServiceManager
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getCurrentLocaleId() : int
     {

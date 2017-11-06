@@ -21,14 +21,14 @@ class AdapterTest extends TestCase
     /**
      * @var AbstractAdapter
      */
-    private $yfEntityAdapter;
+    private $abstractAdapterMock;
 
     /**
      * (non-PHPDoc)
      */
     public function setUp()
     {
-        $this->yfEntityAdapter = $this->getMockForAbstractClass(
+        $this->abstractAdapterMock = $this->getMockForAbstractClass(
             AbstractAdapter::class, [Bootstrap::getServiceManager()]
         );
 
@@ -50,11 +50,11 @@ class AdapterTest extends TestCase
             [ParameterContainer::TYPE_STRING => '36546g54g4g4g!@#$%^&']
         ];
 
-        $getParamType = Bootstrap::getMethod($this->yfEntityAdapter, 'getParamType');
+        $getParamType = Bootstrap::getMethod($this->abstractAdapterMock, 'getParamType');
 
         foreach ($paramTypes as $paramTypeArray) {
             foreach ($paramTypeArray as $key=>$paramType) {
-                $adapterParamType = $getParamType->invokeArgs($this->yfEntityAdapter, [$paramType]);
+                $adapterParamType = $getParamType->invokeArgs($this->abstractAdapterMock, [$paramType]);
                 $this->assertEquals($adapterParamType, $key);
 
             }
@@ -66,9 +66,9 @@ class AdapterTest extends TestCase
      */
     public function testGetCurrentLocale()
     {
-        $getCurrentLocale = Bootstrap::getMethod($this->yfEntityAdapter, 'getCurrentLocaleId');
+        $getCurrentLocale = Bootstrap::getMethod($this->abstractAdapterMock, 'getCurrentLocaleId');
 
-        $this->assertTrue(is_string($getCurrentLocale->invokeArgs($this->yfEntityAdapter, [])));
+        $this->assertTrue(is_int($getCurrentLocale->invokeArgs($this->abstractAdapterMock, [])));
     }
 
     /**
@@ -82,9 +82,9 @@ class AdapterTest extends TestCase
             [ParameterContainer::TYPE_STRING => '228']
         ];
 
-        $initParams = Bootstrap::getMethod($this->yfEntityAdapter, 'initParams');
+        $initParams = Bootstrap::getMethod($this->abstractAdapterMock, 'initParams');
 
-        $initParamsResult = $initParams->invokeArgs($this->yfEntityAdapter, [$testParamArray]);
+        $initParamsResult = $initParams->invokeArgs($this->abstractAdapterMock, [$testParamArray]);
 
         $testParamsAfterInitMustBe = [
             ':param0' => [ParameterContainer::TYPE_STRING => 'fff@mail.ru'],

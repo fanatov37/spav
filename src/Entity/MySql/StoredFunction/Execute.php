@@ -68,13 +68,11 @@ abstract class Execute extends AbstractStoredFunction
 
         $sql = sprintf($this->templateFunctionSql,
             $this->getScheme(),
-            strval($this->getFunction()),
+            $this->getFunction(),
             implode(', ', array_filter($paramArray))
         );
 
-        $statement = $this->getAdapter()->query($sql, ZendAdapter::QUERY_MODE_EXECUTE);
-
-        return $statement;
+        return $this->getAdapter()->query($sql, ZendAdapter::QUERY_MODE_EXECUTE);
     }
 
     /**
