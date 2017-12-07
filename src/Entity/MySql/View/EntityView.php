@@ -97,10 +97,9 @@ abstract class EntityView extends View
      *
      * @return string
      */
-    public function getSqlQuery()
+    public function getSqlQuery() : string
     {
-        //todo check this moment
-        return $this->select->assemble();
+        return $this->select->getSqlString();
     }
 
     /**

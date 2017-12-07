@@ -14,10 +14,14 @@ use Zend\Http\Header\SetCookie;
 use Zend\I18n\Translator\TextDomain;
 use Zend\Json\Json;
 
+
 class LocaleService extends ServiceManager
 {
     /**
      * @return array
+     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function getLocaleList() : array
     {
@@ -30,28 +34,36 @@ class LocaleService extends ServiceManager
      * @param $locale
      *
      * @return SetCookie
+     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function setLocale($locale)
+    public function setLocale($locale) : SetCookie
     {
         /** @var array $localeList */
         $localeList = $this->getLocaleList();
 
-        if (in_array($locale, $localeList)) {
-            $translator = $this->getTranslator();
-
-            $cookie = new SetCookie();
-            $cookie->setName('locale')
-                ->setValue($locale)
-                ->setPath('/');
-
-            $translator->setLocale($locale);
-
-            return $cookie;
+        if (!in_array($locale, $localeList)) {
+            throw new \Exception('Undefined local name');
         }
+
+        $translator = $this->getTranslator();
+
+        $cookie = new SetCookie();
+        $cookie->setName('locale')
+            ->setValue($locale)
+            ->setPath('/');
+
+        $translator->setLocale($locale);
+
+        return $cookie;
     }
 
     /**
-     * @return mixed
+     * @return string
+     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function getCurrentLocale() : string
     {
@@ -62,6 +74,9 @@ class LocaleService extends ServiceManager
 
     /**
      * @return int
+     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function getCurrentLocaleId() : int
     {
@@ -74,32 +89,50 @@ class LocaleService extends ServiceManager
 
         foreach ($localeList as $key=>$locale) {
             if ($locale === $currentLocale) {
-                break;
+                $currentLocaleIndex = $key;
             }
-
-            ++ $currentLocaleIndex;
         }
 
-
         return $currentLocaleIndex;
+    }
+
+    /**
+     * @param int $localeId
+     *
+     * @return string
+     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
+    public function getLocaleNameById(int $localeId) : string
+    {
+        $localeList = $this->getLocaleList();
+
+        if(!isset($localeList[$localeId])) {
+            throw new \Exception('Undefined local name by this id');
+        }
+
+        return $localeList[$localeId];
     }
 
     /**
      * @param $locale
      *
      * @return bool
+     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function isCurrentLocale($locale) : bool
     {
-        if ($locale === $this->getCurrentLocale()) {
-            return true;
-        }
-
-        return false;
+        return $locale === $this->getCurrentLocale();
     }
 
     /**
      * @return string
+     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function getAllTranslatedMessage() : string
     {

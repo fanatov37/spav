@@ -65,10 +65,11 @@ abstract class View extends AbstractAdapter
     /**
      * (non-PHPDoc)
      *
-     * @return Result
+     * @return \Zend\Db\Adapter\Driver\ResultInterface
      */
     private function execute()
     {
+        /** todo check it */
         $this->select->from($this->viewName, $this->rows);
 
         $statement = $this->sql->prepareStatementForSqlObject($this->select);

@@ -47,8 +47,10 @@ abstract class ServiceManager
     /**
      * @param $name
      *
-     * @return array|object
+     * @return mixed
      * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function getService($name)
     {
@@ -61,6 +63,9 @@ abstract class ServiceManager
 
     /**
      * @return Translator
+     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function getTranslator() : Translator
     {
@@ -69,6 +74,9 @@ abstract class ServiceManager
 
     /**
      * @return array
+     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function getConfig() : array
     {
@@ -77,6 +85,9 @@ abstract class ServiceManager
 
     /**
      * @return Logger
+     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function getLog() : Logger
     {
@@ -84,7 +95,10 @@ abstract class ServiceManager
     }
 
     /**
-     * @return array
+     * @return array|null
+     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function getIdentity() : ?array
     {
