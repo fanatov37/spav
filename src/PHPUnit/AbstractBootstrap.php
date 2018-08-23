@@ -183,7 +183,7 @@ abstract class AbstractBootstrap
                 'namespaces' => array_merge($this->getNamespace(),
                     [
                         'SpavTest' =>
-                        self::getApplicationPath() . '/vendor/spav/tests'
+                        self::getApplicationPath() . '/vendor/fanatov37/spav/tests'
                     ]
                 )]
         ]);
