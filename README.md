@@ -21,14 +21,5 @@ Check out PHPUnit test(folder **tests**). You can find example of use Stored Pro
 Using Composer
 
 ```php
-"repositories": [
-    {
-      "type": "git",
-      "url": "https://github.com/fanatov37/spav"
-    }
-  ],
-  
-"require": {
-  "spav" : "dev-master"
-}
+composer require fanatov37/spav
 ```
