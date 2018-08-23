@@ -1,20 +1,18 @@
 <?php
-/**
- * LocaleService
- *
- * @link https://fanatov37@bitbucket.org/fanatov37/hypeshare.git for the canonical source repository
- * @copyright Copyright (c)
- * @license HypeShare (c)
- * @author VladFanatov
- * @package Core
- */
 namespace Spav\ServiceManager;;
 
 use Zend\Http\Header\SetCookie;
 use Zend\I18n\Translator\TextDomain;
 use Zend\Json\Json;
-
-
+/**
+ * Class LocaleService
+ *
+ * @link https://fanatov37@bitbucket.org/fanatov37/hypeshare.git for the canonical source repository
+ * @copyright Copyright (c)
+ * @license HypeShare (c)
+ * @author VladFanatov
+ * @package Spav\ServiceManager
+ */
 class LocaleService extends ServiceManager
 {
     /**

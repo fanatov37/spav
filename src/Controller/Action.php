@@ -1,14 +1,4 @@
 <?php
-
-/**
- * Action
- *
- * @link https://github.com/fanatov37/spav.git for the canonical source repository
- * @copyright Copyright (c) 2015
- * @license YouFold (c)
- * @author VladFanatov
- * @package Library
- */
 namespace Spav\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
@@ -16,7 +6,16 @@ use Zend\Http\PhpEnvironment\{
     Response
 };
 use Zend\Mvc\MvcEvent;
-
+/**
+ * Class Action
+ *
+ * @link https://github.com/fanatov37/spav.git for the canonical source repository
+ * @copyright Copyright (c) 2015
+ * @license YouFold (c)
+ * @author VladFanatov
+ *
+ * @package Spav\Controller
+ */
 abstract class Action extends AbstractActionController
 {
     /**
@@ -31,8 +30,8 @@ abstract class Action extends AbstractActionController
 
         return false;
     }
-
     /**
+     * todo need check it. mb remove
      * if you wanna that your Action has controll
      * under user, you must return true
      *
@@ -44,7 +43,6 @@ abstract class Action extends AbstractActionController
     {
         return false;
     }
-
     /**
      * (non-PHPDoc)
      *
@@ -58,7 +56,6 @@ abstract class Action extends AbstractActionController
             }
         }
     }
-
     /**
      * @param MvcEvent $e
      *
