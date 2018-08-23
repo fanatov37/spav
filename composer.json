@@ -1,5 +1,5 @@
 {
-    "name": "spav",
+    "name": "fanatov37/spav",
     "description": "Stored Programs and Views in MySql for ZF2 or ZF3",
     "keywords": [
         "spav",
@@ -8,12 +8,12 @@
         "view mysql",
         "stored programs and views"
     ],
-    "license": "GNU",
+    "license": "MIT",
     "authors": [
         {
             "name": "Vlad Fanatov",
             "email": "fan.oldschool@gmail.com",
-            "homepage": "https://www.facebook.com/fanatov37"
+            "homepage": "https://www.linkedin.com/in/fan37/"
         }
     ],
     "config": {
