@@ -1,6 +1,9 @@
 <?php
 namespace Spav\Controller;
 
+use Core\Controller\Oauth2Controller;
+use Spav\ServiceManager\ServiceManager;
+use Zend\Http\Request;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Http\PhpEnvironment\{
     Response
@@ -13,11 +16,23 @@ use Zend\Mvc\MvcEvent;
  * @copyright Copyright (c) 2015
  * @license YouFold (c)
  * @author VladFanatov
- *
  * @package Spav\Controller
  */
 abstract class Action extends AbstractActionController
 {
+    /**
+     * @var ServiceManager
+     */
+    protected $serviceManager;
+    /**
+     * Action constructor.
+     *
+     * @param ServiceManager $serviceManager
+     */
+    public function __construct(ServiceManager $serviceManager)
+    {
+        $this->serviceManager = $serviceManager;
+    }
     /**
      * @return bool
      */
@@ -66,5 +81,29 @@ abstract class Action extends AbstractActionController
         $this->preDispatch();
 
         return parent::onDispatch($e);
+    }
+    /**
+     * @return mixed
+     */
+    public function hasAccessAction()
+    {
+        /** @var Response $response */
+        $response = $this->getResponse();
+
+        /** @var Request $request */
+        $request = $this->getRequest();
+
+        if (!$request->isPost()) {
+            $response->setStatusCode(Response::STATUS_CODE_404);
+
+            return false;
+        }
+
+        $hasAccess = $this->forward()->dispatch(Oauth2Controller::class, ['action' => 'hasAccess']);
+        if (!$hasAccess) {
+            $response->setStatusCode(Response::STATUS_CODE_401);
+        }
+
+        return $hasAccess;
     }
 }
