@@ -23,7 +23,7 @@ abstract class Action extends AbstractActionController
     /**
      * @var ServiceManager
      */
-    protected $serviceManager;
+    protected $service;
     /**
      * Action constructor.
      *
@@ -31,7 +31,7 @@ abstract class Action extends AbstractActionController
      */
     public function __construct(ServiceManager $serviceManager)
     {
-        $this->serviceManager = $serviceManager;
+        $this->service = $serviceManager;
     }
     /**
      * @return bool
