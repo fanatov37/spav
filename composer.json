@@ -23,7 +23,6 @@
         "php": "~7"
     },
     "require-dev": {
-        "zfcampus/zf-oauth2": "^1.5"
     },
     "autoload": {
         "psr-4": { "Spav\\": "src/" }
