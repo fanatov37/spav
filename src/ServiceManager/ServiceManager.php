@@ -8,8 +8,6 @@ use Zend\Db\Adapter\Adapter;
 use Zend\I18n\Translator\Translator;
 use Zend\Log\Logger;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\Session\Container;
-use Zend\Session\Storage\ArrayStorage;
 /**
  * Class ServiceManager
  *
@@ -108,9 +106,9 @@ abstract class ServiceManager
     /**
      * @param string $token
      *
-     * @return int|null
+     * @return array
      */
-    public function getUserDataByToken(string $token) : ?array
+    public function getUserDataByToken(string $token) : array
     {
         /** @var Adapter $adapter */
         $adapter = $this->sm->get(Adapter::class);
@@ -122,9 +120,9 @@ abstract class ServiceManager
             inner join user on user.id=oauth_access_tokens.user_id
             where access_token = '{$token}'
         ");
-        $result = $query->execute();
+        $result = $query->execute()->current();
 
-        return $result->current();
+        return $result ? $result : [];
     }
     /**
      * @param string $token
@@ -134,14 +132,16 @@ abstract class ServiceManager
     public function initIdentityByToken(string $token)
     {
         $userData = $this->getUserDataByToken($token);
-        $sessionStorage = new Session();
-        $sessionStorage->write([
-            'userId' => (int)$userData['user_id'],
-            'languageId' => (int)$userData['language_id']
-        ]);
 
-        /** @var AuthenticationService $authService */
-        $authService = $this->getService(AuthenticationService::class);
-        $authService->setStorage($sessionStorage);
+        if ($userData) {
+            $sessionStorage = new Session();
+            $sessionStorage->write([
+                'userId' => (int)$userData['user_id'],
+                'languageId' => (int)$userData['language_id']
+            ]);
+            /** @var AuthenticationService $authService */
+            $authService = $this->getService(AuthenticationService::class);
+            $authService->setStorage($sessionStorage);
+        }
     }
 }
