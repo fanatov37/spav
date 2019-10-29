@@ -1,5 +1,6 @@
 # Local configs
 /tests/config/*.local.php
+.idea
 
 
 # todo list
