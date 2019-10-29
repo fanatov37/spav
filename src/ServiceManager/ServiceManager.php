@@ -40,7 +40,7 @@ abstract class ServiceManager
      *
      * @deprecated
      */
-    protected function getServiceManager() : ServiceLocatorInterface
+    protected function getServiceManager(): ServiceLocatorInterface
     {
         return $this->sm;
     }
