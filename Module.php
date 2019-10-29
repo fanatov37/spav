@@ -1,18 +1,20 @@
 <?php
+
 namespace Spav;
 
 use Zend\EventManager\EventManagerInterface;
 use Zend\Loader\StandardAutoloader;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+
 /**
- * Class Module
+ * Class Module.
  *
- * @link https://fanatov37@bitbucket.org/fanatov37/hypeshare.git for the canonical source repository
+ * @see https://fanatov37@bitbucket.org/fanatov37/hypeshare.git for the canonical source repository
+ *
  * @copyright Copyright (c)
  * @license HypeShare (c)
  * @author VladFanatov
- * @package Spav
  */
 class Module
 {
@@ -27,6 +29,7 @@ class Module
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
     }
+
     /**
      * @return array
      */
@@ -35,9 +38,9 @@ class Module
         return [
             StandardAutoloader::class => [
                 'namespaces' => [
-                    __NAMESPACE__ => __DIR__ . '/src/'
-                ]
-            ]
+                    __NAMESPACE__ => __DIR__.'/src/',
+                ],
+            ],
         ];
     }
 }

@@ -1,13 +1,14 @@
 <?php
 /**
- * Execute
+ * Execute.
  *
- * @link https://github.com/fanatov37/spav.git for the canonical source repository
+ * @see https://github.com/fanatov37/spav.git for the canonical source repository
+ *
  * @copyright Copyright (c) 2015
  * @license YouFold (c)
  * @author VladFanatov
- * @package Library
  */
+
 namespace Spav\Entity\MySql\StoredFunction;
 
 use Spav\Entity\MySql\LanguageInterface;
@@ -23,13 +24,13 @@ use Zend\Stdlib\ArrayUtils;
 abstract class Execute extends AbstractStoredFunction
 {
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      *
      * execute store function from mysql
      *
      * @return ResultSet
      */
-    final protected function statementExecute() : ResultSet
+    final protected function statementExecute(): ResultSet
     {
         $bindParams = [];
 
@@ -38,28 +39,27 @@ abstract class Execute extends AbstractStoredFunction
         }
 
         if ($this instanceof UserInterface) {
-            $lenguageKey = self::STR_PARAM . count($bindParams);
+            $lenguageKey = self::STR_PARAM.count($bindParams);
 
             $bindParamsArray[$lenguageKey] =
-                [ParameterContainer::TYPE_STRING=>$this->getUserId()];
+                [ParameterContainer::TYPE_STRING => $this->getUserId()];
         }
 
         if ($this instanceof LanguageInterface) {
-            $lenguageKey = self::STR_PARAM . count($bindParams);
+            $lenguageKey = self::STR_PARAM.count($bindParams);
 
             $bindParams[$lenguageKey] =
-                [ParameterContainer::TYPE_INTEGER=>$this->getCurrentLocaleId()];
+                [ParameterContainer::TYPE_INTEGER => $this->getCurrentLocaleId()];
         }
 
         $paramArray = [];
 
         foreach ($bindParams as $bindParam) {
-
             $currentBindParam = current($bindParam);
 
-            if ($currentBindParam === null) {
+            if (null === $currentBindParam) {
                 $paramArray[] = 'null';
-            } else if (is_string($currentBindParam)) {
+            } elseif (is_string($currentBindParam)) {
                 $paramArray[] = "'$currentBindParam'";
             } else {
                 $paramArray[] = $currentBindParam;
@@ -76,11 +76,11 @@ abstract class Execute extends AbstractStoredFunction
     }
 
     /**
-     * todo need refactoring
+     * todo need refactoring.
      *
      * @return array
      */
-    protected function getResult() : array
+    protected function getResult(): array
     {
         $resultSet = $this->statementExecute();
 

@@ -1,19 +1,20 @@
 <?php
 
 /**
- * ParamInterface
+ * ParamInterface.
  *
- * @link https://github.com/fanatov37/spav.git for the canonical source repository
+ * @see https://github.com/fanatov37/spav.git for the canonical source repository
+ *
  * @copyright Copyright (c) 2015
  * @license YouFold (c)
  * @author VladFanatov
- * @package Library
  */
+
 namespace Spav\Entity\MySql;
 
 use Zend\Stdlib\ArrayObject;
 
-Interface ParamInterface
+interface ParamInterface
 {
     /**
      * @param ArrayObject|\stdClass $paramObject
@@ -25,5 +26,5 @@ Interface ParamInterface
     /**
      * @return array
      */
-    public function getParams() : array;
+    public function getParams(): array;
 }

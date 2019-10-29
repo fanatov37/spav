@@ -1,14 +1,15 @@
 <?php
 
 /**
- * AbstractStoredProcedure
+ * AbstractStoredProcedure.
  *
- * @link https://github.com/fanatov37/spav.git for the canonical source repository
+ * @see https://github.com/fanatov37/spav.git for the canonical source repository
+ *
  * @copyright Copyright (c) 2015
  * @license YouFold (c)
  * @author VladFanatov
- * @package Library
  */
+
 namespace Spav\Entity\MySql\StoredProcedure;
 
 use Spav\Entity\MySql\LanguageInterface;
@@ -19,11 +20,10 @@ use Zend\Db\Adapter\Driver\ResultInterface;
 use Zend\Db\Adapter\ParameterContainer;
 use Zend\Db\ResultSet\ResultSet;
 
-
 abstract class BindExecute extends AbstractStoredProcedure
 {
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      *
      * @return ResultInterface
      */
@@ -38,17 +38,17 @@ abstract class BindExecute extends AbstractStoredProcedure
         }
 
         if ($this instanceof UserInterface) {
-            $lenguageKey = self::STR_PARAM . count($bindParamsArray);
+            $lenguageKey = self::STR_PARAM.count($bindParamsArray);
 
             $bindParamsArray[$lenguageKey] =
-                [ParameterContainer::TYPE_STRING=>$this->getUserId()];
+                [ParameterContainer::TYPE_STRING => $this->getUserId()];
         }
 
         if ($this instanceof LanguageInterface) {
-            $lenguageKey = self::STR_PARAM . count($bindParamsArray);
+            $lenguageKey = self::STR_PARAM.count($bindParamsArray);
 
             $bindParamsArray[$lenguageKey] =
-                [ParameterContainer::TYPE_INTEGER=>$this->getCurrentLocaleId()];
+                [ParameterContainer::TYPE_INTEGER => $this->getCurrentLocaleId()];
         }
 
         foreach ($bindParamsArray as $key => $bindParams) {
@@ -78,11 +78,11 @@ abstract class BindExecute extends AbstractStoredProcedure
      *
      * @throws \Exception
      */
-    protected function getResult() : array
+    protected function getResult(): array
     {
         $result = $this->statementExecute();
 
-        if ( !($result instanceof ResultInterface && $result->isQueryResult())) {
+        if (!($result instanceof ResultInterface && $result->isQueryResult())) {
             throw new \Exception('Execute function must return ResultInterface');
         }
 

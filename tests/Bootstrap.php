@@ -1,12 +1,12 @@
 <?php
 /**
- * Bootstrap
+ * Bootstrap.
  *
- * @link https://github.com/fanatov37/spav.git for the canonical source repository
+ * @see https://github.com/fanatov37/spav.git for the canonical source repository
+ *
  * @copyright Copyright (c) 2015
  * @license SPAV (c)
  * @author VladFanatov
- * @package Library PHPUnit
  */
 
 namespace SpavTest;
@@ -14,31 +14,31 @@ namespace SpavTest;
 use Spav\PHPUnit\AbstractBootstrap;
 
 /* todo need use autoload for it */
-require_once dirname(__DIR__) .'/src/PHPUnit/AbstractBootstrap.php';
+require_once dirname(__DIR__).'/src/PHPUnit/AbstractBootstrap.php';
 
 class Bootstrap extends AbstractBootstrap
 {
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      *
      * You can override this method. It's for example.
      *
      * @return array
      */
-    protected function getModules() : array
+    protected function getModules(): array
     {
         return [
-            'Core'
+            'Core',
         ];
     }
 
     /**
      * @return array
      */
-    public function getNamespace() : array
+    public function getNamespace(): array
     {
         return [
-            __NAMESPACE__ => __DIR__ . '/' . __NAMESPACE__,
+            __NAMESPACE__ => __DIR__.'/'.__NAMESPACE__,
         ];
     }
 
@@ -47,7 +47,7 @@ class Bootstrap extends AbstractBootstrap
      */
     protected function getConfigGlobPaths(): string
     {
-        return $this->findParentPath('vendor') . '/spav/tests/config';
+        return $this->findParentPath('vendor').'/spav/tests/config';
     }
 }
 

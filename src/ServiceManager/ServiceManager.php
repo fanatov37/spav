@@ -1,4 +1,5 @@
 <?php
+
 namespace Spav\ServiceManager;
 
 use Interop\Container\ContainerInterface;
@@ -8,15 +9,15 @@ use Zend\Db\Adapter\Adapter;
 use Zend\I18n\Translator\Translator;
 use Zend\Log\Logger;
 use Zend\ServiceManager\ServiceLocatorInterface;
+
 /**
- * Class ServiceManager
+ * Class ServiceManager.
  *
- * @link https://github.com/fanatov37/spav.git for the canonical source repository
+ * @see https://github.com/fanatov37/spav.git for the canonical source repository
+ *
  * @copyright Copyright (c) 2015
  * @license YouFold (c)
  * @author VladFanatov
- *
- * @package Spav\ServiceManager
  */
 abstract class ServiceManager
 {
@@ -44,10 +45,12 @@ abstract class ServiceManager
     {
         return $this->sm;
     }
+
     /**
      * @param $name
      *
      * @return mixed
+     *
      * @throws \Exception
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
@@ -60,55 +63,64 @@ abstract class ServiceManager
 
         return $this->sm->get($name);
     }
+
     /**
      * @return Translator
+     *
      * @throws \Exception
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function getTranslator() : Translator
+    public function getTranslator(): Translator
     {
         return $this->getService('translator');
     }
+
     /**
      * @return array
+     *
      * @throws \Exception
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function getConfig() : array
+    public function getConfig(): array
     {
         return $this->getService('config');
     }
+
     /**
      * @return Logger
+     *
      * @throws \Exception
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function getLog() : Logger
+    public function getLog(): Logger
     {
         return $this->getService('log');
     }
+
     /**
      * @return array|null
+     *
      * @throws \Exception
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function getIdentity() : ?array
+    public function getIdentity(): ?array
     {
         /** @var AuthenticationService $authService */
         $authService = $this->getService(AuthenticationService::class);
 
         return $authService->getIdentity();
     }
+
     /**
      * @param string $token
      *
      * @return array
      */
-    public function getUserDataByToken(string $token) : array
+    public function getUserDataByToken(string $token): array
     {
         /** @var Adapter $adapter */
         $adapter = $this->sm->get(Adapter::class);
@@ -124,6 +136,7 @@ abstract class ServiceManager
 
         return $result ? $result : [];
     }
+
     /**
      * @param string $token
      *
@@ -136,8 +149,8 @@ abstract class ServiceManager
         if ($userData) {
             $sessionStorage = new Session();
             $sessionStorage->write([
-                'userId' => (int)$userData['user_id'],
-                'languageId' => (int)$userData['language_id']
+                'userId' => (int) $userData['user_id'],
+                'languageId' => (int) $userData['language_id'],
             ]);
             /** @var AuthenticationService $authService */
             $authService = $this->getService(AuthenticationService::class);
