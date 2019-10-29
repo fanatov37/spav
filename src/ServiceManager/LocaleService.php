@@ -1,29 +1,32 @@
 <?php
-namespace Spav\ServiceManager;;
+
+namespace Spav\ServiceManager;
 
 use Zend\Http\Header\SetCookie;
 use Zend\I18n\Translator\TextDomain;
 use Zend\Json\Json;
+
 /**
- * Class LocaleService
+ * Class LocaleService.
  *
- * @link https://fanatov37@bitbucket.org/fanatov37/hypeshare.git for the canonical source repository
+ * @see https://fanatov37@bitbucket.org/fanatov37/hypeshare.git for the canonical source repository
+ *
  * @copyright Copyright (c)
  * @license HypeShare (c)
  * @author VladFanatov
- * @package Spav\ServiceManager
  */
 class LocaleService extends ServiceManager
 {
     /**
      * @return array
+     *
      * @throws \Exception
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function getLocaleList() : array
+    public function getLocaleList(): array
     {
-        $config  = $this->getConfig();
+        $config = $this->getConfig();
 
         return $config['translator']['list'];
     }
@@ -32,11 +35,12 @@ class LocaleService extends ServiceManager
      * @param $locale
      *
      * @return SetCookie
+     *
      * @throws \Exception
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function setLocale($locale) : SetCookie
+    public function setLocale($locale): SetCookie
     {
         /** @var array $localeList */
         $localeList = $this->getLocaleList();
@@ -59,11 +63,12 @@ class LocaleService extends ServiceManager
 
     /**
      * @return string
+     *
      * @throws \Exception
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function getCurrentLocale() : string
+    public function getCurrentLocale(): string
     {
         $translator = $this->getTranslator();
 
@@ -72,11 +77,12 @@ class LocaleService extends ServiceManager
 
     /**
      * @return int
+     *
      * @throws \Exception
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function getCurrentLocaleId() : int
+    public function getCurrentLocaleId(): int
     {
         $currentLocale = $this->getCurrentLocale();
 
@@ -85,7 +91,7 @@ class LocaleService extends ServiceManager
 
         $currentLocaleIndex = 1;
 
-        foreach ($localeList as $key=>$locale) {
+        foreach ($localeList as $key => $locale) {
             if ($locale === $currentLocale) {
                 $currentLocaleIndex = $key;
             }
@@ -98,15 +104,16 @@ class LocaleService extends ServiceManager
      * @param int $localeId
      *
      * @return string
+     *
      * @throws \Exception
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function getLocaleNameById(int $localeId) : string
+    public function getLocaleNameById(int $localeId): string
     {
         $localeList = $this->getLocaleList();
 
-        if(!isset($localeList[$localeId])) {
+        if (!isset($localeList[$localeId])) {
             throw new \Exception('Undefined local name by this id');
         }
 
@@ -117,22 +124,24 @@ class LocaleService extends ServiceManager
      * @param $locale
      *
      * @return bool
+     *
      * @throws \Exception
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function isCurrentLocale($locale) : bool
+    public function isCurrentLocale($locale): bool
     {
         return $locale === $this->getCurrentLocale();
     }
 
     /**
      * @return string
+     *
      * @throws \Exception
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function getAllTranslatedMessage() : string
+    public function getAllTranslatedMessage(): string
     {
         $translator = $this->getTranslator();
 
