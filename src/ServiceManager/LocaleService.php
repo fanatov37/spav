@@ -27,7 +27,6 @@ class LocaleService extends ServiceManager
 
         return $config['translator']['list'];
     }
-
     /**
      * @param $locale
      *
