@@ -1,12 +1,12 @@
 <?php
 /**
- * AbstractDatabaseTestCase
+ * AbstractDatabaseTestCase.
  *
- * @link https://github.com/fanatov37/spav.git for the canonical source repository
+ * @see https://github.com/fanatov37/spav.git for the canonical source repository
+ *
  * @copyright Copyright (c) 2015
  * @license YouFold (c)
  * @author VladFanatov
- * @package Core PHPUnit
  */
 
 namespace Spav\PHPUnit;
@@ -16,14 +16,12 @@ use PHPUnit\DbUnit\Database\DefaultConnection;
 use PHPUnit\DbUnit\TestCase;
 use SpavTest\Bootstrap;
 
-
 abstract class AbstractDatabaseTestCase extends TestCase
 {
-
     /**
      * @var PDO
      */
-    static private $pdo = null;
+    private static $pdo = null;
 
     /**
      * @var DefaultConnection
@@ -33,7 +31,7 @@ abstract class AbstractDatabaseTestCase extends TestCase
     /**
      * @return array
      */
-    protected function getDataBaseConfig() : array
+    protected function getDataBaseConfig(): array
     {
         $config = Bootstrap::getServiceManager()->get('config');
 
@@ -43,11 +41,11 @@ abstract class AbstractDatabaseTestCase extends TestCase
     /**
      * @return null|\PDO
      */
-    final public function getAdapter() : PDO
+    final public function getAdapter(): PDO
     {
         $dataBaseConfig = $this->getDataBaseConfig();
 
-        if (self::$pdo == null) {
+        if (null == self::$pdo) {
             self::$pdo = new PDO(
                 $dataBaseConfig['dsn'],
                 $dataBaseConfig['username'],
@@ -61,9 +59,9 @@ abstract class AbstractDatabaseTestCase extends TestCase
     /**
      * @return null|DefaultConnection
      */
-    final public function getConnection() : DefaultConnection
+    final public function getConnection(): DefaultConnection
     {
-        if ($this->conn === null) {
+        if (null === $this->conn) {
             $this->conn = $this->createDefaultDBConnection($this->getAdapter());
         }
 

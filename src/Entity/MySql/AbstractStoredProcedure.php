@@ -1,19 +1,19 @@
 <?php
 
 /**
- * AbstractStoredProcedure
+ * AbstractStoredProcedure.
  *
- * @link https://github.com/fanatov37/spav.git for the canonical source repository
+ * @see https://github.com/fanatov37/spav.git for the canonical source repository
+ *
  * @copyright Copyright (c) 2015
  * @license YouFold (c)
  * @author VladFanatov
- * @package Library
  */
+
 namespace Spav\Entity\MySql;
 
 use Spav\Entity\AbstractAdapter;
 use Zend\Db\Adapter\ParameterContainer;
-
 use Zend\Json\Json;
 
 abstract class AbstractStoredProcedure extends AbstractAdapter
@@ -26,82 +26,77 @@ abstract class AbstractStoredProcedure extends AbstractAdapter
     protected $templateProcedureSql = 'call %s.%s(%s)';
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      *
      * @return string
      */
-    abstract protected function getProcedure() : string ;
+    abstract protected function getProcedure(): string;
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      *
      * @return string
      */
     abstract protected function statementExecute();
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      *
      * @return array
      */
-    abstract protected function getResult() : array;
+    abstract protected function getResult(): array;
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      *
      * @throws \Exception
      *
      * @return array
      */
-    public function fetchAll() : array
+    public function fetchAll(): array
     {
         try {
-
             $data = $this->getResult();
 
             return [
                 'success' => true,
-                'data' => $data
+                'data' => $data,
             ];
-
         } catch (\Exception $exception) {
-
             return [
                 'success' => false,
-                'message' => $exception->getMessage()
+                'message' => $exception->getMessage(),
             ];
         }
     }
 
     /**
-     * todo need refactoring
+     * todo need refactoring.
      *
      * (non-PHPDoc)
      *
      * @return array
      */
-    public function execute() : array
+    public function execute(): array
     {
         try {
             $result = $this->getResult();
 
-            if ( !(count($result) === 1 && isset($result[0]['json']))) {
+            if (!(1 === count($result) && isset($result[0]['json']))) {
                 throw new \Exception('Invalid resultset');
             }
 
             return Json::decode($result[0]['json'], Json::TYPE_ARRAY);
-
         } catch (\Exception $exception) {
-
             return [
                 'success' => false,
-                'message' => $exception->getMessage()
+                'message' => $exception->getMessage(),
             ];
         }
     }
 
     /**
-     * todo need refactoring
+     * todo need refactoring.
      *
      * need for cache
      *
@@ -120,18 +115,17 @@ abstract class AbstractStoredProcedure extends AbstractAdapter
         }
 
         if ($this instanceof LanguageInterface) {
-            $lenguageKey = self::STR_PARAM . count($bindParams);
+            $lenguageKey = self::STR_PARAM.count($bindParams);
 
-            $bindParams[$lenguageKey] = [ParameterContainer::TYPE_INTEGER=>2];
+            $bindParams[$lenguageKey] = [ParameterContainer::TYPE_INTEGER => 2];
         }
 
         $paramArray = [];
 
         foreach ($bindParams as $bindParam) {
-
             $currentBindParam = current($bindParam);
 
-            if ($currentBindParam === null) {
+            if (null === $currentBindParam) {
                 $paramArray[] = 'null';
             } else {
                 $paramArray[] = $currentBindParam;

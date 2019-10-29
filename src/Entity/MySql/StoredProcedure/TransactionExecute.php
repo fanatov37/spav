@@ -1,14 +1,15 @@
 <?php
 
 /**
- * TransactionExecute
+ * TransactionExecute.
  *
- * @link https://github.com/fanatov37/spav.git for the canonical source repository
+ * @see https://github.com/fanatov37/spav.git for the canonical source repository
+ *
  * @copyright Copyright (c) 2015
  * @license YouFold (c)
  * @author VladFanatov
- * @package Library
  */
+
 namespace Spav\Entity\MySql\StoredProcedure;
 
 use Zend\Json\Json;
@@ -16,7 +17,7 @@ use Zend\Json\Json;
 abstract class TransactionExecute extends Execute
 {
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      */
     protected function beginTransaction()
     {
@@ -24,7 +25,7 @@ abstract class TransactionExecute extends Execute
     }
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      */
     protected function rollback()
     {
@@ -32,7 +33,7 @@ abstract class TransactionExecute extends Execute
     }
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      */
     protected function commit()
     {
@@ -40,14 +41,13 @@ abstract class TransactionExecute extends Execute
     }
 
     /**
-     *
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      *
      * @throws \Exception
      *
      * @return array
      */
-    final public function fetchAll() : array
+    final public function fetchAll(): array
     {
         try {
             $this->beginTransaction();
@@ -58,35 +58,33 @@ abstract class TransactionExecute extends Execute
 
             return [
                 'success' => true,
-                'data' => $data
+                'data' => $data,
             ];
-
         } catch (\Exception $exception) {
-
             $this->rollback();
 
             return [
                 'success' => false,
-                'message' => $exception->getMessage()
+                'message' => $exception->getMessage(),
             ];
         }
     }
 
     /**
-     * todo need refactoring
+     * todo need refactoring.
      *
      * (non-PHPDoc)
      *
      * @return array
      */
-    final public function execute() : array
+    final public function execute(): array
     {
         try {
             $this->beginTransaction();
 
             $result = $this->getResult();
 
-            if ( !(count($result) === 1 && isset($result[0]['json']))) {
+            if (!(1 === count($result) && isset($result[0]['json']))) {
                 throw new \Exception('Invalid resultset');
             }
 
@@ -99,14 +97,12 @@ abstract class TransactionExecute extends Execute
             }
 
             return $result;
-
         } catch (\Exception $exception) {
-
             $this->rollback();
 
             return [
                 'success' => false,
-                'message' => $exception->getMessage()
+                'message' => $exception->getMessage(),
             ];
         }
     }

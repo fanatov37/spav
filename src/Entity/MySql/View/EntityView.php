@@ -1,13 +1,14 @@
 <?php
 /**
- * EntityView
+ * EntityView.
  *
- * @link https://github.com/fanatov37/spav.git for the canonical source repository
+ * @see https://github.com/fanatov37/spav.git for the canonical source repository
+ *
  * @copyright Copyright (c) 2015
  * @license YouFold (c)
  * @author VladFanatov
- * @package Library
  */
+
 namespace Spav\Entity\MySql\View;
 
 use Spav\Entity\MySql\View;
@@ -16,51 +17,49 @@ use Zend\Db\Sql\Predicate\Predicate;
 abstract class EntityView extends View
 {
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      *
      * @return array
      */
     abstract protected function getColumns();
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      *
      * @return array (view name and columns)
-     *
      */
     abstract protected function getView();
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      *
      * @see YF_Module_Db_MySql_View::_setData()
-     *
      */
     protected function setData()
     {
         $getView = $this->getView();
-        $this->viewName = (string)$getView[0];
+        $this->viewName = (string) $getView[0];
         $this->rows = $getView[1];
     }
 
     /**
      * <code>
      * $this->_getPrimaryKey(); // 'USER_ID'
-     * </code>
+     * </code>.
      *
      * @return string
      */
     protected function getPrimaryKey()
     {
-        return NULL;
+        return null;
     }
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      *
      * @see Zend_Db_Select
      */
-    public function limit($count = NULL, $offset = NULL)
+    public function limit($count = null, $offset = null)
     {
         if (!empty($count)) {
             $this->select->limit($count, $offset);
@@ -68,14 +67,14 @@ abstract class EntityView extends View
     }
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      *
      * @see Zend_Db_Select
      */
-    public function order($column = NULL, $direction = NULL)
+    public function order($column = null, $direction = null)
     {
         if (!empty($column)) {
-            $orderQuery = trim($column . ' ' . strtoupper(empty($direction) ? NULL : $direction));
+            $orderQuery = trim($column.' '.strtoupper(empty($direction) ? null : $direction));
             $this->select->order($orderQuery);
         }
 
@@ -83,33 +82,33 @@ abstract class EntityView extends View
     }
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      *
      * @return int
      */
     public function getCount()
     {
-        return (int)$this->rowCount;
+        return (int) $this->rowCount;
     }
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      *
      * @return string
      */
-    public function getSqlQuery() : string
+    public function getSqlQuery(): string
     {
         return $this->select->getSqlString();
     }
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      *
      * @param Predicate $predicate
      *
      * @return $this|self
      */
-    public function where(Predicate $predicate) : self
+    public function where(Predicate $predicate): self
     {
         $this->select->where($predicate);
 
@@ -121,14 +120,14 @@ abstract class EntityView extends View
      *
      * @return $this|self
      */
-    public function whereId(int $id) : self
+    public function whereId(int $id): self
     {
         $predicate = new Predicate();
 
         $primaryKey = $this->getPrimaryKey();
 
         if (empty($id) || empty($primaryKey)) {
-            $predicate->equalTo(-1,1);
+            $predicate->equalTo(-1, 1);
         } else {
             $predicate->equalTo($primaryKey, $id);
         }
@@ -139,14 +138,13 @@ abstract class EntityView extends View
     }
 
     /**
-     *
-     * Rememder that your query must have user_id field
+     * Rememder that your query must have user_id field.
      *
      * @param int $userId
      *
      * @return $this|self
      */
-    public function whereByUserId(int $userId) : self
+    public function whereByUserId(int $userId): self
     {
         $predicate = new Predicate();
 
@@ -164,7 +162,7 @@ abstract class EntityView extends View
     /**
      * <code>
      * $this->getViewOrder(); //'id'
-     * </code>
+     * </code>.
      *
      * <code>
      * $this->getViewOrder(); //['id']
@@ -182,7 +180,7 @@ abstract class EntityView extends View
     }
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      */
     public function cacheClean()
     {
@@ -190,7 +188,7 @@ abstract class EntityView extends View
     }
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      *
      * @return array()
      */

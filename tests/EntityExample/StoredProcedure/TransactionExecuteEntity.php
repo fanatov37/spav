@@ -1,13 +1,14 @@
 <?php
 /**
- * TransactionExecuteEntity
+ * TransactionExecuteEntity.
  *
- * @link https://github.com/fanatov37/spav.git for the canonical source repository
+ * @see https://github.com/fanatov37/spav.git for the canonical source repository
+ *
  * @copyright Copyright (c) 2015
  * @license SPAV (c)
  * @author VladFanatov
- * @package Library PHPUnit
  */
+
 namespace SpavTest\EntityExample\StoredProcedure;
 
 use Spav\Entity\MySql\LanguageInterface;
@@ -22,28 +23,30 @@ class TransactionExecuteEntity extends TransactionExecute implements ParamInterf
      * @var int
      */
     private $key;
+
     /**
      * @var string
      */
     private $name;
+
     /**
      * @var int
      */
     private $type;
+
     /**
      * @var bool
      */
     private $isExeption;
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      *
      * @see BindExecute::getFunction()
      *
      * @return string
-     *
      */
-    protected function getProcedure() : string
+    protected function getProcedure(): string
     {
         return 'test_procedure';
     }
@@ -53,7 +56,7 @@ class TransactionExecuteEntity extends TransactionExecute implements ParamInterf
      *
      * @return self
      */
-    public function setParams($paramObject) : self
+    public function setParams($paramObject): self
     {
         $this->key = $paramObject->key;
         $this->name = $paramObject->name;
@@ -72,7 +75,7 @@ class TransactionExecuteEntity extends TransactionExecute implements ParamInterf
             [ParameterContainer::TYPE_INTEGER => $this->key],
             [ParameterContainer::TYPE_STRING => $this->name],
             [ParameterContainer::TYPE_INTEGER => $this->type],
-            [ParameterContainer::TYPE_INTEGER => $this->isExeption]
+            [ParameterContainer::TYPE_INTEGER => $this->isExeption],
         ];
     }
 }

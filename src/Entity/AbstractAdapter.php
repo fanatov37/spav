@@ -1,13 +1,14 @@
 <?php
 /**
- * AbstractAdapter
+ * AbstractAdapter.
  *
- * @link https://github.com/fanatov37/spav.git for the canonical source repository
+ * @see https://github.com/fanatov37/spav.git for the canonical source repository
+ *
  * @copyright Copyright (c) 2015
  * @license YouFold (c)
  * @author VladFanatov
- * @package Library
  */
+
 namespace Spav\Entity;
 
 use Spav\ServiceManager\LocaleService;
@@ -36,28 +37,27 @@ abstract class AbstractAdapter
     }
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      *
      * @return ZendAdapter
      */
-    protected function getAdapter() : ZendAdapter
+    protected function getAdapter(): ZendAdapter
     {
         return $this->_sm->get(ZendAdapter::class);
     }
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      *
      * @return string
      */
-    protected function getScheme() : string
+    protected function getScheme(): string
     {
-
         return $this->getAdapter()->getDriver()->getConnection()->getCurrentSchema();
     }
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      *
      * check param type
      *
@@ -65,44 +65,49 @@ abstract class AbstractAdapter
      *
      * @return string
      */
-    protected function getParamType($type) : string
+    protected function getParamType($type): string
     {
-        switch ((string)$type) {
+        switch ((string) $type) {
             case ParameterContainer::TYPE_STRING:
                 return $type;
+
                 break;
 
             case ParameterContainer::TYPE_INTEGER:
                 return $type;
+
                 break;
 
             case ParameterContainer::TYPE_LOB:
                 return $type;
+
                 break;
 
             case ParameterContainer::TYPE_DOUBLE:
                 return $type;
+
                 break;
 
             case ParameterContainer::TYPE_NULL:
                 return $type;
+
                 break;
 
-            default :
+            default:
                 return ParameterContainer::TYPE_STRING;
+
                 break;
         }
     }
 
     /**
-     *
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      *
      * @param array $params
      *
      * @return array
      */
-    protected function initParams(array $params) : array
+    protected function initParams(array $params): array
     {
         $paramArray = [];
 
@@ -110,7 +115,7 @@ abstract class AbstractAdapter
             foreach ($param as $k => $item) {
                 $paramType = $this->getParamType($k);
 
-                $paramArray[self::STR_PARAM . $key] = [$paramType => $item];
+                $paramArray[self::STR_PARAM.$key] = [$paramType => $item];
             }
         }
 
@@ -122,7 +127,7 @@ abstract class AbstractAdapter
      *
      * @return int
      */
-    protected function getCurrentLocaleId() : int
+    protected function getCurrentLocaleId(): int
     {
         /** @var LocaleService $localeService */
         $localeService = $this->_sm->get(LocaleService::class);
@@ -133,7 +138,7 @@ abstract class AbstractAdapter
     /**
      * @return null|int
      */
-    public function getUserId() : ?int
+    public function getUserId(): ?int
     {
         $userId = null;
 
@@ -143,7 +148,7 @@ abstract class AbstractAdapter
         $identity = $authService->getIdentity();
 
         if (is_array($identity) && isset($identity['userId'])) {
-            $userId =$identity['userId'];
+            $userId = $identity['userId'];
         }
 
         return $userId;

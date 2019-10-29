@@ -1,26 +1,28 @@
 <?php
 /**
- * LocaleServiceTest
+ * LocaleServiceTest.
  *
- * @link https://github.com/fanatov37/spav.git for the canonical source repository
+ * @see https://github.com/fanatov37/spav.git for the canonical source repository
+ *
  * @copyright Copyright (c) 2015
  * @license SPAV (c)
  * @author VladFanatov
- * @package Library PHPUnit
  */
+
 namespace SpavTest\ServiceManager;
 
 use PHPUnit\Framework\TestCase;
 use Spav\ServiceManager\LocaleService;
 use SpavTest\Bootstrap;
 
-
 class LocaleServiceTest extends TestCase
 {
     public const ENG_LOCALE = 'en_US';
+
     public const ENG_LOCALE_ID = 1;
 
     public const RUS_LOCALE = 'ru_RU';
+
     public const RUS_LOCALE_ID = 2;
 
     /**
@@ -29,7 +31,7 @@ class LocaleServiceTest extends TestCase
     private $localService;
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      */
     public function setUp()
     {
@@ -39,7 +41,7 @@ class LocaleServiceTest extends TestCase
     }
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      */
     public function tearDown()
     {
@@ -69,8 +71,7 @@ class LocaleServiceTest extends TestCase
 
         $this->assertEquals(self::RUS_LOCALE, $localService->getCurrentLocale());
 
-
-        /** change locale */
+        /* change locale */
 
         $this->assertTrue(in_array(self::ENG_LOCALE, $localeList));
 
@@ -109,7 +110,7 @@ class LocaleServiceTest extends TestCase
     /**
      * @see LocaleService::getAllTranslatedMessage
      */
-    public function testGetAllTranslatedMessage ()
+    public function testGetAllTranslatedMessage()
     {
         $allTranslatedMessage = $this->localService->getAllTranslatedMessage();
 

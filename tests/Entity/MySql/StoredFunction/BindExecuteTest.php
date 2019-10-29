@@ -1,13 +1,14 @@
 <?php
 /**
- * BindExecuteTest
+ * BindExecuteTest.
  *
- * @link https://github.com/fanatov37/spav.git for the canonical source repository
+ * @see https://github.com/fanatov37/spav.git for the canonical source repository
+ *
  * @copyright Copyright (c) 2015
  * @license SPAV (c)
  * @author VladFanatov
- * @package Library PHPUnit
  */
+
 namespace SpavTest\Entity\MySql\StoredFunction;
 
 use PHPUnit\Framework\TestCase;
@@ -25,7 +26,7 @@ class BindExecuteTest extends TestCase
     protected $bindExecuteEntity;
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      */
     public function setUp()
     {
@@ -43,7 +44,7 @@ class BindExecuteTest extends TestCase
     }
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      */
     public function tearDown()
     {

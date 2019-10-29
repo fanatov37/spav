@@ -1,13 +1,14 @@
 <?php
 /**
- * BindExecute
+ * BindExecute.
  *
- * @link https://github.com/fanatov37/spav.git for the canonical source repository
+ * @see https://github.com/fanatov37/spav.git for the canonical source repository
+ *
  * @copyright Copyright (c) 2015
  * @license YouFold (c)
  * @author VladFanatov
- * @package Library
  */
+
 namespace Spav\Entity\MySql\StoredFunction;
 
 use Spav\Entity\MySql\LanguageInterface;
@@ -21,13 +22,13 @@ use Zend\Json\Json;
 abstract class BindExecute extends AbstractStoredFunction
 {
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      *
      * execute store function from mysql
      *
      * @return ResultInterface
      */
-    final protected function statementExecute() : ResultInterface
+    final protected function statementExecute(): ResultInterface
     {
         $bindParamsArray = [];
 
@@ -38,17 +39,17 @@ abstract class BindExecute extends AbstractStoredFunction
         }
 
         if ($this instanceof UserInterface) {
-            $usereKey = self::STR_PARAM . count($bindParamsArray);
+            $usereKey = self::STR_PARAM.count($bindParamsArray);
 
             $bindParamsArray[$usereKey] =
-                [ParameterContainer::TYPE_INTEGER=>$this->getUserId()];
+                [ParameterContainer::TYPE_INTEGER => $this->getUserId()];
         }
 
         if ($this instanceof LanguageInterface) {
-            $lenguageKey = self::STR_PARAM . count($bindParamsArray);
+            $lenguageKey = self::STR_PARAM.count($bindParamsArray);
 
             $bindParamsArray[$lenguageKey] =
-                [ParameterContainer::TYPE_INTEGER=>$this->getCurrentLocaleId()];
+                [ParameterContainer::TYPE_INTEGER => $this->getCurrentLocaleId()];
         }
 
         foreach ($bindParamsArray as $key => $bindParams) {
@@ -71,7 +72,7 @@ abstract class BindExecute extends AbstractStoredFunction
     /**
      * @return array
      */
-    protected function getResult() : array
+    protected function getResult(): array
     {
         $result = $this->statementExecute()->current();
 

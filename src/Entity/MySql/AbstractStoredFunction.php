@@ -1,13 +1,14 @@
 <?php
 /**
- * AbstractStoredFunction
+ * AbstractStoredFunction.
  *
- * @link https://github.com/fanatov37/spav.git for the canonical source repository
+ * @see https://github.com/fanatov37/spav.git for the canonical source repository
+ *
  * @copyright Copyright (c) 2015
  * @license YouFold (c)
  * @author VladFanatov
- * @package Library
  */
+
 namespace Spav\Entity\MySql;
 
 use Spav\Entity\AbstractAdapter;
@@ -22,41 +23,39 @@ abstract class AbstractStoredFunction extends AbstractAdapter
     protected $templateFunctionSql = 'select %s.%s(%s) as json from dual';
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      *
      * @return ResultInterface|ResultSet
      */
     abstract protected function statementExecute();
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      *
      * @return string
      */
-    abstract protected function getFunction() : string;
+    abstract protected function getFunction(): string;
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      *
      * @return array
      */
-    abstract protected function getResult() : array;
+    abstract protected function getResult(): array;
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      *
      * @return array
      */
-    final public function execute() : array
+    final public function execute(): array
     {
         try {
             return $this->getResult();
-
         } catch (\Exception $ex) {
-
             return [
                 'success' => false,
-                'message' => $ex->getMessage()
+                'message' => $ex->getMessage(),
             ];
         }
     }
