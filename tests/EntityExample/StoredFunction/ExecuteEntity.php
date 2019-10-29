@@ -1,13 +1,14 @@
 <?php
 /**
- * ExecuteEntity
+ * ExecuteEntity.
  *
- * @link https://github.com/fanatov37/spav.git for the canonical source repository
+ * @see https://github.com/fanatov37/spav.git for the canonical source repository
+ *
  * @copyright Copyright (c) 2015
  * @license SPAV (c)
  * @author VladFanatov
- * @package Library PHPUnit
  */
+
 namespace SpavTest\EntityExample\StoredFunction;
 
 use Spav\Entity\MySql\LanguageInterface;
@@ -16,7 +17,6 @@ use Spav\Entity\MySql\StoredFunction\BindExecute;
 use Spav\Entity\MySql\StoredFunction\Execute;
 use Zend\Db\Adapter\ParameterContainer;
 use Zend\Stdlib\ArrayObject;
-
 
 class ExecuteEntity extends Execute implements ParamInterface, LanguageInterface
 {
@@ -31,14 +31,13 @@ class ExecuteEntity extends Execute implements ParamInterface, LanguageInterface
     private $integer;
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      *
      * @see BindExecute::getFunction()
      *
      * @return string
-     *
      */
-    protected function getFunction() : string
+    protected function getFunction(): string
     {
         return 'test_function';
     }
@@ -48,7 +47,7 @@ class ExecuteEntity extends Execute implements ParamInterface, LanguageInterface
      *
      * @return self
      */
-    public function setParams($paramObject) : self
+    public function setParams($paramObject): self
     {
         $this->string = $paramObject->string;
         $this->integer = $paramObject->integer;
@@ -59,11 +58,11 @@ class ExecuteEntity extends Execute implements ParamInterface, LanguageInterface
     /**
      * @return array
      */
-    public function getParams() : array
+    public function getParams(): array
     {
         return [
             [ParameterContainer::TYPE_STRING => $this->string],
-            [ParameterContainer::TYPE_INTEGER => $this->integer]
+            [ParameterContainer::TYPE_INTEGER => $this->integer],
         ];
     }
 }

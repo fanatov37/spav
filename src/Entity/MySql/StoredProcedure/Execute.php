@@ -1,25 +1,24 @@
 <?php
 
 /**
- * Execute
+ * Execute.
  *
- * @link https://github.com/fanatov37/spav.git for the canonical source repository
+ * @see https://github.com/fanatov37/spav.git for the canonical source repository
+ *
  * @copyright Copyright (c) 2015
  * @license YouFold (c)
  * @author VladFanatov
- * @package Library
  */
+
 namespace Spav\Entity\MySql\StoredProcedure;
 
 use Spav\Entity\MySql\LanguageInterface;
 use Spav\Entity\MySql\ParamInterface;
 use Spav\Entity\MySql\AbstractStoredProcedure;
 use Spav\Entity\MySql\UserInterface;
-
 use Zend\Db\Adapter\Adapter as ZendAdapter;
 use Zend\Db\Adapter\ParameterContainer;
 use Zend\Db\ResultSet\ResultSet;
-
 
 abstract class Execute extends AbstractStoredProcedure
 {
@@ -35,28 +34,27 @@ abstract class Execute extends AbstractStoredProcedure
         }
 
         if ($this instanceof UserInterface) {
-            $lenguageKey = self::STR_PARAM . count($bindParams);
+            $lenguageKey = self::STR_PARAM.count($bindParams);
 
             $bindParamsArray[$lenguageKey] =
-                [ParameterContainer::TYPE_STRING=>$this->getUserId()];
+                [ParameterContainer::TYPE_STRING => $this->getUserId()];
         }
 
         if ($this instanceof LanguageInterface) {
-            $lenguageKey = self::STR_PARAM . count($bindParams);
+            $lenguageKey = self::STR_PARAM.count($bindParams);
 
             $bindParams[$lenguageKey] =
-                [ParameterContainer::TYPE_INTEGER=>$this->getCurrentLocaleId()];
+                [ParameterContainer::TYPE_INTEGER => $this->getCurrentLocaleId()];
         }
 
         $paramArray = [];
 
         foreach ($bindParams as $bindParam) {
-
             $currentBindParam = current($bindParam);
 
-            if ($currentBindParam === null) {
+            if (null === $currentBindParam) {
                 $paramArray[] = 'null';
-            } else if (is_string($currentBindParam)) {
+            } elseif (is_string($currentBindParam)) {
                 $paramArray[] = "'$currentBindParam'";
             } else {
                 $paramArray[] = $currentBindParam;
@@ -77,11 +75,11 @@ abstract class Execute extends AbstractStoredProcedure
      *
      * @throws \Exception
      */
-    protected function getResult() : array
+    protected function getResult(): array
     {
         $result = $this->statementExecute();
 
-        if ( !($result instanceof ResultSet)) {
+        if (!($result instanceof ResultSet)) {
             throw new \Exception('Execute function must return ResultInterface');
         }
 

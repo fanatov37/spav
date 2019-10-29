@@ -1,13 +1,14 @@
 <?php
 /**
- * TransactionExecuteTest
+ * TransactionExecuteTest.
  *
- * @link https://github.com/fanatov37/spav.git for the canonical source repository
+ * @see https://github.com/fanatov37/spav.git for the canonical source repository
+ *
  * @copyright Copyright (c) 2015
  * @license SPAV (c)
  * @author VladFanatov
- * @package Library PHPUnit
  */
+
 namespace SpavTest\Entity\MySql\StoredProcedure;
 
 use PHPUnit\DbUnit\DataSet\ArrayDataSet;
@@ -17,11 +18,12 @@ use SpavTest\Bootstrap;
 use Spav\Entity\MySql\AbstractStoredProcedure;
 use SpavTest\EntityExample\StoredProcedure\TransactionExecuteEntity;
 
-
 class TransactionExecuteTest extends AbstractDatabaseTestCase
 {
     const TYPE_JSON = 1;
+
     const TYPE_RECORDSET = 2;
+
     const TYPE_TRANSACTION = 3;
 
     /**
@@ -34,16 +36,16 @@ class TransactionExecuteTest extends AbstractDatabaseTestCase
      */
     public function getDataSet()
     {
-        return new ArrayDataSet( [
+        return new ArrayDataSet([
             'test_table' => [
-                ['id' => 100, 'key'  => uniqid('key-', true), 'name' => 'Mordecai Richler'],
-                ['id' => 101, 'key'  => uniqid('key-', true), 'name' => 'Farley Mowat']
-            ]
+                ['id' => 100, 'key' => uniqid('key-', true), 'name' => 'Mordecai Richler'],
+                ['id' => 101, 'key' => uniqid('key-', true), 'name' => 'Farley Mowat'],
+            ],
         ]);
     }
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      */
     public function setUp()
     {
@@ -54,7 +56,7 @@ class TransactionExecuteTest extends AbstractDatabaseTestCase
     }
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      */
     public function tearDown()
     {
@@ -96,12 +98,10 @@ class TransactionExecuteTest extends AbstractDatabaseTestCase
         $this->assertEquals($uniqKey, $result['key']);
         $this->assertEquals($name, $result['name']);
 
-
         $executeEntityResultUnSuccess = $this->transactionExecuteEntity->execute();
 
         $this->assertEquals(0, $executeEntityResultUnSuccess['success']);
         $this->assertArrayHasKey('message', $executeEntityResultUnSuccess);
-
 
         $arrayObject = new ArrayObject();
         $arrayObject->setFlags(ArrayObject::ARRAY_AS_PROPS);
@@ -121,5 +121,4 @@ class TransactionExecuteTest extends AbstractDatabaseTestCase
         $this->assertArrayHasKey('message', $executeEntityResultUnSuccess);
         $this->assertArrayHasKey('id', $executeEntityResultUnSuccess);
     }
-
 }

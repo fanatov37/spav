@@ -1,19 +1,19 @@
 <?php
 /**
- * StoredProcedureTest
+ * StoredProcedureTest.
  *
- * @link https://github.com/fanatov37/spav.git for the canonical source repository
+ * @see https://github.com/fanatov37/spav.git for the canonical source repository
+ *
  * @copyright Copyright (c) 2015
  * @license SPAV (c)
  * @author VladFanatov
- * @package Library PHPUnit
  */
+
 namespace SpavTest\Entity\MySql;
 
 use PHPUnit\Framework\TestCase;
 use SpavTest\Bootstrap;
 use Spav\Entity\MySql\AbstractStoredProcedure;
-use Zend\Db\Adapter\ParameterContainer;
 
 class StoredProcedureTest extends TestCase
 {
@@ -23,7 +23,7 @@ class StoredProcedureTest extends TestCase
     private $storedProcedure;
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      */
     public function setUp()
     {

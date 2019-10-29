@@ -1,19 +1,18 @@
 <?php
 /**
- * Bootstrap
+ * Bootstrap.
  *
- * @link https://github.com/fanatov37/spav.git for the canonical source repository
+ * @see https://github.com/fanatov37/spav.git for the canonical source repository
+ *
  * @copyright Copyright (c) 2015
  * @license YouFold (c)
  * @author VladFanatov
- * @package Core PHPUnit
  */
 
 namespace Spav\PHPUnit;
 
 use Zend\Loader\AutoloaderFactory;
 use Zend\Loader\StandardAutoloader;
-use Zend\Mvc\Application;
 use Zend\Mvc\Service\ServiceManagerConfig;
 use Zend\ServiceManager\ServiceManager;
 use RuntimeException;
@@ -37,19 +36,19 @@ abstract class AbstractBootstrap
     /**
      * @return array
      */
-    abstract protected function getNamespace() : array;
+    abstract protected function getNamespace(): array;
 
     /**
      * @return string
      */
-    abstract protected function getConfigGlobPaths() : string;
+    abstract protected function getConfigGlobPaths(): string;
 
     /**
-     * default Modules
+     * default Modules.
      *
      * @return array
      */
-    abstract protected function getModules() : array;
+    abstract protected function getModules(): array;
 
     /**
      * @return mixed
@@ -70,13 +69,13 @@ abstract class AbstractBootstrap
      *
      * @return bool|string
      */
-    final public function findParentPath($path) : string
+    final public function findParentPath($path): string
     {
         $dir = __DIR__;
 
         $previousDir = '.';
 
-        while (!is_dir($dir . '/' . $path)) {
+        while (!is_dir($dir.'/'.$path)) {
             $dir = dirname($dir);
 
             if ($previousDir === $dir) {
@@ -86,13 +85,13 @@ abstract class AbstractBootstrap
             $previousDir = $dir;
         }
 
-        return $dir . '/' . $path;
+        return $dir.'/'.$path;
     }
 
     /**
      * @return string
      */
-    public function getApplicationPath() : string
+    public function getApplicationPath(): string
     {
         return dirname($this->findParentPath('module'));
     }
@@ -100,7 +99,7 @@ abstract class AbstractBootstrap
     /**
      * @return array
      */
-    private function getZf2ModulePaths() : array
+    private function getZf2ModulePaths(): array
     {
         $zf2ModulePaths = [dirname(dirname(__DIR__))];
 
@@ -118,15 +117,14 @@ abstract class AbstractBootstrap
     /**
      * @return array
      */
-    protected function getConfig() : array
+    protected function getConfig(): array
     {
         $config = [
             'modules' => $this->getModules(),
             'module_listener_options' => [
                 'module_paths' => $this->getZf2ModulePaths(),
-                'config_glob_paths' =>
-                    [$this->getConfigGlobPaths() . '/{{,*.}global,{,*.}local}.php']
-            ]
+                'config_glob_paths' => [$this->getConfigGlobPaths().'/{{,*.}global,{,*.}local}.php'],
+            ],
         ];
 
         return $config;
@@ -135,7 +133,7 @@ abstract class AbstractBootstrap
     /**
      * @return array
      */
-    public static function getApplicationConfig() : array
+    public static function getApplicationConfig(): array
     {
         /** @var self $instance */
         $instance = self::getInstance();
@@ -144,7 +142,7 @@ abstract class AbstractBootstrap
     }
 
     /**
-     * @param mixed $class
+     * @param mixed  $class
      * @param string $name
      *
      * @return \ReflectionMethod
@@ -161,11 +159,11 @@ abstract class AbstractBootstrap
     }
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      */
     protected function initAutoloader()
     {
-        $autoloadPath = $this->getApplicationPath() . '/vendor/autoload.php';
+        $autoloadPath = $this->getApplicationPath().'/vendor/autoload.php';
 
         if (file_exists($autoloadPath)) {
             include $autoloadPath;
@@ -182,23 +180,22 @@ abstract class AbstractBootstrap
                 'autoregister_zf' => true,
                 'namespaces' => array_merge($this->getNamespace(),
                     [
-                        'SpavTest' =>
-                        self::getApplicationPath() . '/vendor/fanatov37/spav/tests'
+                        'SpavTest' => self::getApplicationPath().'/vendor/fanatov37/spav/tests',
                     ]
-                )]
+                ), ],
         ]);
     }
 
     /**
      * @return ServiceManager
      */
-    public static function getServiceManager() : ServiceManager
+    public static function getServiceManager(): ServiceManager
     {
         return self::$serviceManager;
     }
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      */
     public static function chroot()
     {
@@ -210,7 +207,7 @@ abstract class AbstractBootstrap
     }
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      */
     public static function init()
     {

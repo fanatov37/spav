@@ -1,27 +1,28 @@
 <?php
 
 /**
- * CacheInterface
+ * CacheInterface.
  *
- * @link https://github.com/fanatov37/spav.git for the canonical source repository
+ * @see https://github.com/fanatov37/spav.git for the canonical source repository
+ *
  * @copyright Copyright (c) 2015
  * @license YouFold (c)
  * @author VladFanatov
- * @package Library
  */
+
 namespace Spav\Entity\EntityInterface;
 
-Interface CacheInterface
+interface CacheInterface
 {
     /**
-     * unique
+     * unique.
      *
      * @return string
      */
     public function getCacheID();
 
     /**
-     * get tags
+     * get tags.
      *
      * <code>
      * $this->getCacheTags(); //array('all vendors', 'apple', 'redhat', 'mandriva');
@@ -32,8 +33,9 @@ Interface CacheInterface
     public function getCacheTags();
 
     /**
-     * life time cache sec (3600 = 1hr)
-     * @return integer
+     * life time cache sec (3600 = 1hr).
+     *
+     * @return int
      */
     public function getCacheLifeTime();
 }
