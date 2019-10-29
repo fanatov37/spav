@@ -1,17 +1,17 @@
 <?php
 /**
- * View
+ * View.
  *
- * @link https://github.com/fanatov37/spav.git for the canonical source repository
+ * @see https://github.com/fanatov37/spav.git for the canonical source repository
+ *
  * @copyright Copyright (c) 2015
  * @license YouFold (c)
  * @author VladFanatov
- * @package Library
  */
+
 namespace Spav\Entity\MySql;
 
 use Spav\Entity\AbstractAdapter;
-use Zend\Db\Adapter\Driver\Pdo\Result;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Sql;
@@ -23,25 +23,29 @@ abstract class View extends AbstractAdapter
      * @var Select
      */
     protected $select;
+
     /**
      * @var Sql
      */
     protected $sql;
+
     /**
      * @var string
      */
     protected $viewName;
+
     /**
      * @var string
      */
     protected $rows;
+
     /**
-     * @var integer
+     * @var int
      */
     protected $rowCount;
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      */
     abstract protected function setData();
 
@@ -63,13 +67,13 @@ abstract class View extends AbstractAdapter
     }
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      *
      * @return \Zend\Db\Adapter\Driver\ResultInterface
      */
     private function execute()
     {
-        /** todo check it */
+        /* todo check it */
         $this->select->from($this->viewName, $this->rows);
 
         $statement = $this->sql->prepareStatementForSqlObject($this->select);
@@ -82,7 +86,7 @@ abstract class View extends AbstractAdapter
     }
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      *
      * @return array()
      */

@@ -1,26 +1,27 @@
 <?php
 /**
- * BindExecuteTest
+ * BindExecuteTest.
  *
- * @link https://github.com/fanatov37/spav.git for the canonical source repository
+ * @see https://github.com/fanatov37/spav.git for the canonical source repository
+ *
  * @copyright Copyright (c) 2015
  * @license SPAV (c)
  * @author VladFanatov
- * @package Library PHPUnit
  */
+
 namespace SpavTest\Entity\MySql\StoredProcedure;
 
 use PHPUnit\Framework\TestCase;
 use SpavTest\Bootstrap;
 use Spav\Entity\MySql\AbstractStoredProcedure;
 use SpavTest\EntityExample\StoredProcedure\ExecuteEntity;
-use Zend\Db\Adapter\Driver\ResultInterface;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Stdlib\ArrayObject;
 
 class ExecuteTest extends TestCase
 {
     const TYPE_JSON = 1;
+
     const TYPE_RECORDSET = 2;
 
     /**
@@ -29,7 +30,7 @@ class ExecuteTest extends TestCase
     protected $executeEntity;
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      */
     public function setUp()
     {
@@ -49,7 +50,7 @@ class ExecuteTest extends TestCase
     }
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      */
     public function tearDown()
     {
@@ -117,7 +118,6 @@ class ExecuteTest extends TestCase
         $arrayObject->setFlags(ArrayObject::ARRAY_AS_PROPS);
 
         $arrayObject->offsetSet('type', self::TYPE_RECORDSET);
-
 
         $this->executeEntity->setParams($arrayObject);
 

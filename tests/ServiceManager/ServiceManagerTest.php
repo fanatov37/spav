@@ -1,13 +1,14 @@
 <?php
 /**
- * ServiceManagerTest
+ * ServiceManagerTest.
  *
- * @link https://github.com/fanatov37/spav.git for the canonical source repository
+ * @see https://github.com/fanatov37/spav.git for the canonical source repository
+ *
  * @copyright Copyright (c) 2015
  * @license SPAV (c)
  * @author VladFanatov
- * @package Library PHPUnit
  */
+
 namespace SpavTest\ServiceManager;
 
 use PHPUnit\Framework\TestCase;
@@ -19,14 +20,13 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class ServiceManagerTest extends TestCase
 {
-
     /**
      * @var ServiceManager
      */
     private $serviceManager;
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      */
     public function setUp()
     {
@@ -38,7 +38,7 @@ class ServiceManagerTest extends TestCase
     }
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      */
     public function tearDown()
     {
@@ -50,7 +50,8 @@ class ServiceManagerTest extends TestCase
     public function testGetServiceError()
     {
         $serviceIsUndefined = false;
-        try{
+
+        try {
             $this->serviceManager->getService('UNDEFINED');
         } catch (\Exception $exception) {
             $serviceIsUndefined = true;
@@ -77,7 +78,7 @@ class ServiceManagerTest extends TestCase
      */
     public function testGetLog()
     {
-       $log = $this->serviceManager->getLog();
+        $log = $this->serviceManager->getLog();
 
         $this->assertTrue($log instanceof Logger);
     }

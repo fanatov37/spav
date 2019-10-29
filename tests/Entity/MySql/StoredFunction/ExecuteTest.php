@@ -1,13 +1,14 @@
 <?php
 /**
- * ExecuteTest
+ * ExecuteTest.
  *
- * @link https://github.com/fanatov37/spav.git for the canonical source repository
+ * @see https://github.com/fanatov37/spav.git for the canonical source repository
+ *
  * @copyright Copyright (c) 2015
  * @license SPAV (c)
  * @author VladFanatov
- * @package Library PHPUnit
  */
+
 namespace SpavTest\Entity\MySql\StoredFunction;
 
 use PHPUnit\Framework\TestCase;
@@ -26,7 +27,7 @@ class ExecuteTest extends TestCase
     protected $executeEntity;
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      */
     public function setUp()
     {
@@ -46,7 +47,7 @@ class ExecuteTest extends TestCase
     }
 
     /**
-     * (non-PHPDoc)
+     * (non-PHPDoc).
      */
     public function tearDown()
     {
@@ -79,7 +80,6 @@ class ExecuteTest extends TestCase
 
     /**
      * @see AbstractStoredFunction::execute()
-     *
      */
     public function testExecute()
     {
@@ -89,8 +89,7 @@ class ExecuteTest extends TestCase
 
         $this->assertEquals(1, $executeSuccessRun['success']);
 
-
-        /** set empty params */
+        /* set empty params */
         $this->executeEntity->setParams(new ArrayObject());
 
         $executeUnSuccessRun = $execute->invoke($this->executeEntity, []);
